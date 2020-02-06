@@ -20,12 +20,12 @@ public class _GeneratorModel {
 
 	public static void main(String[] args) {
 		// base model 说是用的包名
-		String baseModelPackageName = "com.zuel.fleamarket.model.base";
+		String baseModelPackageName = "cn.net.syzc.analysis.model.base";
 		// base model 文件保存路径
-		String baseModelOutputDir = PathKit.getRootClassPath() + "/../../src/main/java/com/zuel/fleamarket/model/base";
+		String baseModelOutputDir = PathKit.getRootClassPath() + "/../../src/main/java/cn/net/syzc/analysis/model/base";
 		// System.out.println(PathKit.getRootClassPath());D:\eclipse-workspace-jee\BookManage\WebRoot\WEB-INF\classes
 		// model 所使用的包名 (MappingKit 默认使用的包名)
-		String modelPackageName = "com.zuel.fleamarket.model";
+		String modelPackageName = "cn.net.syzc.analysis.model";
 		// model 文件保存路径(MappingKit 与DataDictionary 文件默认保存路径)
 		String modelOutputDir = baseModelOutputDir + "/..";
 		System.out.println(baseModelOutputDir);
