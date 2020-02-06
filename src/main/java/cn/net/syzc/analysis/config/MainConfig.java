@@ -1,8 +1,12 @@
 package cn.net.syzc.analysis.config;
 
 import cn.net.syzc.analysis.controller.IndexController;
+import cn.net.syzc.analysis.model._MappingKit;
 import com.jfinal.config.*;
 import com.jfinal.kit.PropKit;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
+import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 
@@ -35,7 +39,13 @@ public class MainConfig extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins me) {
-
+        DruidPlugin dbPlugin = new DruidPlugin(PropKit.get("jdbcUrl"), PropKit.get("user"), PropKit.get("password"));
+        ActiveRecordPlugin arp = new ActiveRecordPlugin(dbPlugin);
+        arp.setShowSql(PropKit.getBoolean("devMode"));
+        arp.setDialect(new MysqlDialect());
+        _MappingKit.mapping(arp);
+        me.add(dbPlugin);
+        me.add(arp);
     }
 
     @Override
