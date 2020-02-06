@@ -23,6 +23,6 @@ public class Test {
         int a = 10;
         int b = 10;
         PyObject pyObject = function.__call__(new PyInteger(a), new PyInteger(b));
-        System.out.println("answer = "+pyObject.toString());
+        System.out.println("answer = " + pyObject.toString());
     }
 }
