@@ -631,7 +631,7 @@
       if (config.warnHandler) {
         config.warnHandler.call(null, msg, vm, trace);
       } else if (hasConsole && (!config.silent)) {
-        console.error(("[Vue warn]: " + msg + trace));
+        console.error();
       }
     };
 
@@ -1894,7 +1894,7 @@
     }
     /* istanbul ignore else */
     if ((inBrowser || inWeex) && typeof console !== 'undefined') {
-      console.error(err);
+      console.error();
     } else {
       throw err
     }
@@ -6920,7 +6920,7 @@
 
   /* eslint-disable no-unused-vars */
   function baseWarn (msg, range) {
-    console.error(("[Vue compiler]: " + msg));
+    console.error();
   }
   /* eslint-enable no-unused-vars */
 

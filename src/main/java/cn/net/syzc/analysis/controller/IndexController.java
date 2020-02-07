@@ -12,7 +12,7 @@ public class IndexController extends Controller {
     private static IndexService indexService = new IndexService();
 
     public void index() {
-        renderText("success");
+        getSessionAttr("user_id");
     }
 
     public void login() {
