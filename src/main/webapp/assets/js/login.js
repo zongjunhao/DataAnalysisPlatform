@@ -40,8 +40,8 @@ function signin() {
             url: "login",
             datatype: 'json',
             data: {
-                "ur_account": sign_no,
-                "ur_pass": sign_pwd,
+                "username": sign_no,
+                "password": sign_pwd,
             }, // 发送数据
             error: function () {
                 layer.msg('request failed', {
@@ -53,7 +53,7 @@ function signin() {
                     $.cookie("username", sign_no);
                     window.location.href = "index.html";
                 } else {
-                    layer.msg(jsonobj.resultDesc + "！", {
+                    layer.msg(jsonobj.resultDesc, {
                         time: 1000
                     });
                 }
