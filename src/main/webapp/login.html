@@ -2,9 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Data Analysis Platform - Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/lib/linearicons/style.css">
+
+    <link rel="stylesheet" href="assets/lib/css/main.css">
+    <link rel="stylesheet" href="assets/lib/css/demo.css">
+    <link rel="stylesheet" href="assets/css/login.css">
 </head>
 <body>
+<div id="wrapper">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle">
+            <div class="auth-box ">
+                <div class="left">
+                    <div class="content" style='width: 98%;'>
+                        <div class="header">
+                            <p class="lead">Login to your account</p>
+                        </div>
+                        <table class="form-auth-small">
+                            <div class="form-group">
+                                <label for="signin-no" class="control-label sr-only">id</label>
+                                <input type="email" class="form-control" id="signin-no" value=""
+                                       placeholder="Username"
+                                       onblur="checkStandard('no')">
+                            </div>
+                            <div class="form-group">
+                                <label for="signin-pwd" class="control-label sr-only">password</label>
+                                <input type="password" class="form-control" id="signin-pwd" value=""
+                                       placeholder="Password"
+                                       onblur="checkStandard('pwd')">
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" id="login-button"
+                                    onclick="return signin();">
+                                LOGIN
+                            </button>
+                        </table>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="overlay"></div>
+                    <div class="content text">
+                        <h1 class="heading">Data Analysis Platform</h1>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script type="text/javascript" src="assets/lib/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="assets/lib/jquery/jquerySession.js"></script>
+<script type="text/javascript" src="assets/lib/layer/layer.js"></script>
+<script type="text/javascript" src="assets/js/login.js"></script>
 </body>
 </html>
