@@ -1,0 +1,18 @@
+.detail-row {
+    margin-bottom: 30px;
+}
+
+.detail-row p {
+    margin: 10px;
+}
+
+.panel .table > thead > tr > th:first-child,
+.panel .table > thead > tr > th:last-child,
+.panel .table > tbody > tr > th:first-child,
+.panel .table > tbody > tr > th:last-child {
+    padding: 8px;
+}
+
+th {
+    text-align: center;
+}

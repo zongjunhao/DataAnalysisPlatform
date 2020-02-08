@@ -1,10 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- VENDOR CSS -->
+<link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/lib/linearicons/style.css">
+<link rel="stylesheet" href="assets/lib/dataTables/dataTables.bootstrap.css">
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="assets/lib/css/main.css">
+<link rel="stylesheet" href="assets/lib/css/demo.css">
+<link rel="stylesheet" href="assets/js/index.js">
+<!--layer css-->
+<link rel="stylesheet" href="assets/lib/layer/layui.css">
+<link rel="stylesheet" href="assets/css/index.css">
 
-</body>
-</html>
+<link rel="stylesheet" href="assets/css/detail.css">
+<!-- 内容与css放置于此 -->
+<meta charset="UTF-8">
+<div id="contain-loader">
+    <div class="container-fluid">
+        <!-- OVERVIEW -->
+        <div class="panel panel-headline">
+            <div class="panel-heading">
+                <h3 class="panel-title">Task details</h3>
+                <p class="panel-subtitle">
+                    Period: <span id="start-time">1970-01-01 00:00:00</span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span
+                        id="end-time">2020-02-08 14:57:56</span>
+                </p>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-7">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div id="chart" class="embed-responsive-item"></div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="task-message detail-row">
+                        <h3>Task Messages (from package)</h3>
+                        <p class="message-body">Test Messages</p>
+                    </div>
+                    <div class="node detail-row">
+                        <h3>Node ID :<span class="node-id">3</span></h3>
+                    </div>
+                    <div class="node-attribute detail-row">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>attr1</th>
+                                <th>attr2</th>
+                                <th>attr3</th>
+                                <th>attr4</th>
+                                <th>attr5</th>
+                                <th>attr6</th>
+                                <th>attr7</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>1</th>
+                                <th>2</th>
+                                <th>2</th>
+                                <th>2</th>
+                                <th>2</th>
+                                <th>2</th>
+                                <th>2</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="node-classification detail-row">
+                        <h3>Node classification</h3>
+                        <p>test classification (from package)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OVERVIEW -->
+    </div>
+</div>
+
+
+<script src="assets/lib/jquery/jquery-3.4.1.js"></script>
+<script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/lib/dataTables/jquery.dataTables.js"></script>
+<script src="assets/lib/layer/layer.js"></script>
+<script src="assets/lib/jquery/jquery.cookie.js"></script>
+
+
+<!-- js放置于此 -->
+<div id="js-loader">
+    <script type="text/javascript" src="assets/lib/echarts.min.js"></script>
+    <script src="assets/js/detail.js"></script>
+    <script>
+
+    </script>
+</div>
+
