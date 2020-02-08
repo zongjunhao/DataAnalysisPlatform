@@ -1,28 +1,36 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Task List Page</title>
     <!-- 添加bootstrap的css样式表 -->
-    <link rel="stylesheet" type="text/css" href="assets/lib/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="assets/lib/dataTables/dataTables.bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/design.css">
-    <!-- 添加JQ -->
-    <script type="text/javascript" src="assets/lib/jquery/jquery-3.4.1.js"></script>
-    <script type="text/javascript" src="assets/lib/jquery/jquerySession.js"></script>
-    <!-- 添加bootstrap的库 -->
-    <script type="text/javascript" src="assets/lib/bootstrap/js/bootstrap.js"></script>
-    <!-- 监听页面窗口大小改变的插件 -->
-    <script type="text/javascript" src="assets/lib/detect-element-resize.js"></script>
-    <script type="text/javascript" src="assets/lib/dataTables/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="assets/lib/dataTables/dataTables.bootstrap.js"></script>
+
+    <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/lib/linearicons/style.css">
+    <link rel="stylesheet" href="assets/lib/dataTables/dataTables.bootstrap.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="assets/lib/css/main.css">
+    <link rel="stylesheet" href="assets/lib/css/demo.css">
+    <link rel="stylesheet" href="assets/js/index.js">
+    <!--layer css-->
+    <link rel="stylesheet" href="assets/lib/layer/layui.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
-<div id="page-inner">
-    <div class="row">
-        <div class="col-md-12">
+
+<!-- 内容与css放置于此 -->
+<meta charset="UTF-8">
+<div id="contain-loader">
+    <link rel="stylesheet" type="text/css" href="assets/css/task.css">
+    <div class="container-fluid embed-responsive embed-responsive-16by9">
+        <!-- OVERVIEW -->
+        <div class="panel panel-headline embed-responsive-item">
             <div class="panel-heading">
-                <span class="span-title">Task List</span>
-                <button class="btn-new-task" onclick="newTask()">+</button>
+                <h3 class="panel-title">Task List</h3>
+                <button type="button" class="btn btn-default" onclick="newTask()">
+                    <i class="fa fa-plus-square"></i> New Task
+                </button>
             </div>
             <div class="panel-body">
                 <div>
@@ -45,128 +53,22 @@
                 </div>
             </div>
         </div>
+        <!-- END OVERVIEW -->
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        // $("body").keydown(function () {
-        //     if (event.keyCode == "13") {
-        //         $('#search').click();
-        //     }
-        // });
 
-        var table = $('#dataTables-example').dataTable();// 加载table插件
-        table.fnDestroy();
+<!-- js放置于此 -->
+<div id="js-loader">
+    <!-- 添加JQ -->
+    <script type="text/javascript" src="assets/lib/jquery/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="assets/lib/jquery/jquerySession.js"></script>
+    <script type="text/javascript" src="assets/lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/lib/dataTables/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="assets/lib/dataTables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/task.js"></script>
+    <script>
 
-        $.ajax({
-            type: "POST",
-            url: "getTaskList",
-            data: {
-                UserId: $.session.get('UserId')
-            },
-            success: function (res) {
-                if (res.resultCode == "2006") {// 查找任务列表成功
-                    console.log(res);
-
-                    var table = "";
-                    var tableLength = res.data.length;
-                    $.each(res.data, function (i, value) {
-
-                        var status = "";
-
-                        if (value.EndTime == "") {
-                            status = "<td>" + "Trading" + "</td>" +
-                                "<td>" + "</td>" + "</tr>"
-                        } else {
-                            status = "<td>" + "Finish" + "</td>" +
-                                "<td>" +
-                                '<button class="btn btn-xs btn-default" onclick="viewResult(' + value.id + ')">View</button>' +
-                                '<button class="btn btn-xs btn-default" onclick="deleteTask(' + value.id + ')">Delete</button>' +
-                                "</td>" +
-                                "</tr>"
-                        }
-                        table += "<tr>" +
-                            "<td>" + (i + 1) + "</td>" +
-                            "<td>" + value.TaskName + "</td>" +
-                            "<td>" + value.AlgorithmType + "</td>" +
-                            "<td>" + value.StartTime + "</td>" +
-                            "<td>" + value.EndTime + "</td>" +
-                             status
-                    });
-                    $(".table tbody").append(table)
-                } else if (res.resultCode == "1006") {
-                    console.log("数据库中没有记录")
-                }
-                console.log("open dataTable")
-                $("#dataTables-example").dataTable();
-            },
-            error: function (res) {
-                console.log(res)
-            }
-        });
-
-    });
-
-    function deleteTask(taskId) {
-        $.ajax({
-            type: "POST",
-            url: "/task/deleteTask",
-            data: {
-                t_id: taskId
-            },
-            success: function (res) {
-                if (res.resultCode == "6004") {
-                    console.log("任务删除成功");
-                    location.reload()
-                } else {
-                    console.log("任务删除失败")
-                }
-            },
-            error: function (res) {
-
-            }
-        });
-    }
-    function viewResult(taskId) {
-        $.ajax({
-            type: "POST",
-            url: "/task/viewResult",
-            data: {
-                g_id: taskId
-            },
-            success: function (res) {
-                if (res.resultCode == "6005") {
-                    console.log("任务结果查看成功");
-                    location.reload()
-                } else {
-                    console.log("任务结果查看失败")
-                }
-            },
-            error: function (res) {
-
-            }
-        });
-    }
-    function newTask() {
-        $.ajax({
-            type: "POST",
-            url: "/task/viewResult",
-            data: {
-                g_id: taskId
-            },
-            success: function (res) {
-                if (res.resultCode == "6005") {
-                    console.log("任务结果查看成功");
-                    location.reload()
-                } else {
-                    console.log("任务结果查看失败")
-                }
-            },
-            error: function (res) {
-
-            }
-        });
-    }
-</script>
+    </script>
+</div>
 </body>
 </html>
