@@ -21,7 +21,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel-heading">
-                Task List
+                <span class="span-title">Task List</span>
+                <button class="btn-new-task" onclick="newTask()">+</button>
             </div>
             <div class="panel-body">
                 <div>
@@ -127,6 +128,26 @@
         });
     }
     function viewResult(taskId) {
+        $.ajax({
+            type: "POST",
+            url: "/task/viewResult",
+            data: {
+                g_id: taskId
+            },
+            success: function (res) {
+                if (res.resultCode == "6005") {
+                    console.log("任务结果查看成功");
+                    location.reload()
+                } else {
+                    console.log("任务结果查看失败")
+                }
+            },
+            error: function (res) {
+
+            }
+        });
+    }
+    function newTask() {
         $.ajax({
             type: "POST",
             url: "/task/viewResult",
