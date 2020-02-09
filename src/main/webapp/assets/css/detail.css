@@ -20,3 +20,14 @@ th {
 .panel{
     margin-bottom: 0;
 }
+
+.link-prediction {
+    width: 30%;
+    border-radius: 6px;
+    background: #53d192;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    line-height: 30px;
+    margin-left: 280px;
+}
