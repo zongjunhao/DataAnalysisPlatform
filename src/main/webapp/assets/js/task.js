@@ -47,8 +47,8 @@ $(document).ready(function () {
             console.log("open dataTable");
             // $("#dataTables-example").dataTable();
             $('#dataTables-example').DataTable({
-                searching : false,
-                bLengthChange : false
+                searching: false,
+                bLengthChange: false
             });// 加载table插件
         },
         error: function (res) {
@@ -57,7 +57,6 @@ $(document).ready(function () {
     });
 
 });
-
 
 
 function deleteTask(taskId) {
@@ -104,22 +103,13 @@ function viewResult(taskId) {
 
 
 function newTask() {
-    $.ajax({
-        type: "POST",
-        url: "/task/viewResult",
-        data: {
-            // g_id: taskId
-        },
-        success: function (res) {
-            if (res.resultCode === "6005") {
-                console.log("任务结果查看成功");
-                location.reload()
-            } else {
-                console.log("任务结果查看失败")
-            }
-        },
-        error: function (res) {
-
+    layer.open({
+        type: 2,
+        title: "New Task",
+        content: "new_task.html",
+        area: ['500px', '500px'],
+        end: function () {
+            parent.window.location.reload();
         }
-    });
+    })
 }
