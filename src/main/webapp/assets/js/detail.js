@@ -112,7 +112,14 @@ function switchMode() {
 
 function getSimilarity() {
     console.log('调用python脚本获取相似度');
-    console.log(nodes)
+    console.log(nodes);
+    layer.open({
+        type: 1,
+        title: 'Link Prediction',
+        area: ['400px', '120px'],
+        shadeClose: true, //点击遮罩关闭
+        content: '\<\div style="padding:20px;">node:' + nodes[0] + " and node:" + nodes[1] + " 's similarity is: " + '\<\/div>'
+      });
     // $.ajax({
     //     type: "POST",
     //     url: "getSimilarity",
@@ -130,7 +137,7 @@ function getSimilarity() {
     //     success: function (jsonobj) {
     //         if (jsonobj.resultCode === "4000") {//获取相似度成功
     //             console.log(jsonobj.data);
-                    
+    //             layer.msg(jsonobj.data);
     //         } else {
     //             layer.msg(jsonobj.resultDesc, {
     //                 time: 1000
