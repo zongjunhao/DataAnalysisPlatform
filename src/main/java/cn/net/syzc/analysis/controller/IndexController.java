@@ -64,9 +64,11 @@ public class IndexController extends Controller {
     public void getTaskList() {
         BaseResponse baseResponse = new BaseResponse();
         try {
-            String UserId = getPara("UserId");
-            if (!StrKit.isBlank(UserId)) {
+            Integer UserId = getSessionAttr("user_id");
+            if (!StrKit.isBlank(UserId.toString())) {
                 List<Task> taskList = indexService.getTaskList(UserId);
+                baseResponse.setData(taskList);
+                baseResponse.setData(ResultCodeEnum.DB_FIND_SUCCESS);
             } else {
                 baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
             }

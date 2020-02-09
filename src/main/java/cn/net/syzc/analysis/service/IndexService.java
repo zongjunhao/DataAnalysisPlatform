@@ -13,14 +13,10 @@ public class IndexService {
     private static Task taskDao = new Task().dao();
 
     public User login(String username, String password) {
-        BaseResponse response = new BaseResponse();
         return userDao.findFirst("select * from user where UserName = ? ", username);
     }
 
-    public List<Task> getTaskList(String UserId) {
-        BaseResponse baseResponse = new BaseResponse();
-        List<Task> taskList = new ArrayList<>();
-        taskList = taskDao.find("select * from task where UserID = ? ", UserId);
-        return taskList;
+    public List<Task> getTaskList(Integer UserId) {
+        return taskDao.find("select * from task where UserID = ? ", UserId);
     }
 }

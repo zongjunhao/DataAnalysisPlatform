@@ -16,7 +16,7 @@ public enum ResultCodeEnum {
     DB_UPDATE_ERROR("2003", "数据库修改失败"),
     DB_ERROR_OVERFLOW("2004", "数据库修改失败_字段字数超过规定"),
     DB_ERROR_FORMAT("2005", "数据库修改失败_字段输入数据格式错误"),
-    DB_FIND_SUCCESS("2006", "数据库查找成功"),
+    DB_FIND_SUCCESS("2006", "Database query successful."),
     DB_FIND_FAILURE("2007", "数据库查找失败，没有该条记录"),
     DB_WARNING_NULL_WRONG_PARA("2008", "该次查询结果为空_输入参数错误"),
     DB_DELETE_SUCCESS("2009", "数据删除成功"),
@@ -28,7 +28,7 @@ public enum ResultCodeEnum {
     PARA_EMAIL_ERROR("3003", "错误的邮箱格式"),
     PARA_PASSWORD_ERROR("3004", "错误的密码格式"),
 
-    LOGIN_SUCCESS("4000", "login success"),
+    LOGIN_SUCCESS("4000", "Login success."),
     LOGIN_ERROR("4001", "登录失败_账号或密码错误"),
     NO_EXIST_USER("4002", "Login failed, user dose not exist."),
     NO_ENOUGH_MES("4003", "登录失败_账号或密码为空"),
