@@ -1,0 +1,28 @@
+.panel-heading {
+    color: #333;
+    background-color: #ededed;
+    border-color: #ddd;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.span-title{
+    font-size: 35px;
+}
+.btn{
+    padding: 5px 10px;
+    margin: 0 8px;
+}
+.btn-new-task{
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 35px;
+    line-height: 1.428571429;
+    border-radius: 25px;
+    float:right;
+    margin-bottom: 3px;
+    background-color:#ededed;
+    border: 1px solid #d5d5d5;
+}
