@@ -1,6 +1,9 @@
 $(document).ready(function () {
-    let table = $('#dataTables-example').dataTable();// 加载table插件
-    table.fnDestroy();
+    // let table = $('#dataTables-example').DataTable({
+    //     searching : false,
+    //     bLengthChange : false
+    // });// 加载table插件
+    // table.fnDestroy();
 
     $.ajax({
         type: "POST",
@@ -42,7 +45,11 @@ $(document).ready(function () {
                 console.log("数据库中没有记录")
             }
             console.log("open dataTable");
-            $("#dataTables-example").dataTable();
+            // $("#dataTables-example").dataTable();
+            $('#dataTables-example').DataTable({
+                searching : false,
+                bLengthChange : false
+            });// 加载table插件
         },
         error: function (res) {
             console.log(res)

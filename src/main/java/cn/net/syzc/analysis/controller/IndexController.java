@@ -68,7 +68,7 @@ public class IndexController extends Controller {
             if (!StrKit.isBlank(UserId.toString())) {
                 List<Task> taskList = indexService.getTaskList(UserId);
                 baseResponse.setData(taskList);
-                baseResponse.setData(ResultCodeEnum.DB_FIND_SUCCESS);
+                baseResponse.setResult(ResultCodeEnum.DB_FIND_SUCCESS);
             } else {
                 baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
             }
