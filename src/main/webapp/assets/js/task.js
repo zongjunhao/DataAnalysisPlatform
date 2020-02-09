@@ -1,61 +1,56 @@
 $(document).ready(function () {
-    let table = $('#dataTables-example').DataTable({
-        "searching": false,
-        "bLengthChange": false, //去掉每页显示多少条数据方法
-        // "ajax":{
-        //     "url" :
-        // }
-    });// 加载table插件
+    let table = $('#dataTables-example').dataTable();// 加载table插件
     table.fnDestroy();
-    //
-    // $.ajax({
-    //     type: "POST",
-    //     url: "getTaskList",
-    //     data: {
-    //         UserId: $.session.get('UserId')
-    //     },
-    //     success: function (res) {
-    //         if (res.resultCode === "2006") {// 查找任务列表成功
-    //             console.log(res);
-    //
-    //             let table = "";
-    //             // let tableLength = res.data.length;
-    //             $.each(res.data, function (i, value) {
-    //
-    //                 let status;
-    //
-    //                 if (value.EndTime === "") {
-    //                     status = "<td>" + "Trading" + "</td>" +
-    //                         "<td>" + "</td>"
-    //                 } else {
-    //                     status = "<td>" + "Finish" + "</td>" +
-    //                         "<td>" +
-    //                         '<button class="btn btn-xs btn-default" onclick="viewResult(' + value.id + ')">View</button>' +
-    //                         '<button class="btn btn-xs btn-default" onclick="deleteTask(' + value.id + ')">Delete</button>' +
-    //                         "</td>"
-    //                 }
-    //                 table += "<tr>" +
-    //                     "<td>" + (i + 1) + "</td>" +
-    //                     "<td>" + value.TaskName + "</td>" +
-    //                     "<td>" + value.AlgorithmType + "</td>" +
-    //                     "<td>" + value.StartTime + "</td>" +
-    //                     "<td>" + value.EndTime + "</td>" +
-    //                     status +
-    //                     "</tr>"
-    //             });
-    //             $(".table tbody").append(table)
-    //         } else if (res.resultCode === "1006") {
-    //             console.log("数据库中没有记录")
-    //         }
-    //         console.log("open dataTable");
-    //         $("#dataTables-example").dataTable();
-    //     },
-    //     error: function (res) {
-    //         console.log(res)
-    //     }
-    // });
+
+    $.ajax({
+        type: "POST",
+        url: "getTaskList",
+        data: {
+            UserId: $.session.get('UserId')
+        },
+        success: function (res) {
+            if (res.resultCode === "2006") {// 查找任务列表成功
+                console.log(res);
+
+                let table = "";
+                // let tableLength = res.data.length;
+                $.each(res.data, function (i, value) {
+
+                    let status;
+
+                    if (value.EndTime === "") {
+                        status = "<td>" + "Trading" + "</td>" +
+                            "<td>" + "</td>"
+                    } else {
+                        status = "<td>" + "Finish" + "</td>" +
+                            "<td>" +
+                            '<button class="btn btn-xs btn-default" onclick="viewResult(' + value.id + ')">View</button>' +
+                            '<button class="btn btn-xs btn-default" onclick="deleteTask(' + value.id + ')">Delete</button>' +
+                            "</td>"
+                    }
+                    table += "<tr>" +
+                        "<td>" + (i + 1) + "</td>" +
+                        "<td>" + value.TaskName + "</td>" +
+                        "<td>" + value.AlgorithmType + "</td>" +
+                        "<td>" + value.StartTime + "</td>" +
+                        "<td>" + value.EndTime + "</td>" +
+                        status +
+                        "</tr>"
+                });
+                $(".table tbody").append(table)
+            } else if (res.resultCode === "1006") {
+                console.log("数据库中没有记录")
+            }
+            console.log("open dataTable");
+            $("#dataTables-example").dataTable();
+        },
+        error: function (res) {
+            console.log(res)
+        }
+    });
 
 });
+
 
 
 function deleteTask(taskId) {
