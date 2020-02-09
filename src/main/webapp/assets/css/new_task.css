@@ -1,0 +1,13 @@
+.required {
+    color: red;
+}
+
+body {
+    margin: 20px auto;
+    width: 400px
+}
+
+.btn {
+    display: block;
+    margin: 0 auto
+}
