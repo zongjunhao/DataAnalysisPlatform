@@ -42,7 +42,7 @@ $(document).ready(function () {
                 });
                 $(".table tbody").append(table)
             } else if (res.resultCode === "1006") {
-                console.log("数据库中没有记录")
+                console.log("No records in the database.")
             }
             console.log("open dataTable");
             // $("#dataTables-example").dataTable();
@@ -62,16 +62,16 @@ $(document).ready(function () {
 function deleteTask(taskId) {
     $.ajax({
         type: "POST",
-        url: "/task/deleteTask",
+        url: "deleteTask",
         data: {
-            t_id: taskId
+            taskId: taskId
         },
         success: function (res) {
             if (res.resultCode === "6004") {
-                console.log("任务删除成功");
+                console.log("Task deleted successfully.");
                 location.reload()
             } else {
-                console.log("任务删除失败")
+                console.log("Task deleted failed.")
             }
         },
         error: function (res) {
@@ -81,24 +81,8 @@ function deleteTask(taskId) {
 }
 
 function viewResult(taskId) {
-    $.ajax({
-        type: "POST",
-        url: "/task/viewResult",
-        data: {
-            g_id: taskId
-        },
-        success: function (res) {
-            if (res.resultCode === "6005") {
-                console.log("任务结果查看成功");
-                location.reload()
-            } else {
-                console.log("任务结果查看失败")
-            }
-        },
-        error: function (res) {
-
-        }
-    });
+    $.session.set('viewedTaskId', taskId);
+    window.location.href = "detail.html"
 }
 
 

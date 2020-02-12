@@ -80,4 +80,85 @@ public class IndexController extends Controller {
         }
     }
 
+    /**
+     *
+     */
+    public void deleteTask() {
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            String taskId = getPara("taskId");
+            if (!StrKit.isBlank(taskId)) {
+                baseResponse = indexService.deleteTask(taskId);
+            } else {
+                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+        } finally {
+            renderJson(baseResponse);
+        }
+    }
+
+    /**
+     *
+     */
+    public void getTask() {
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            String taskId = getPara("taskId");
+            if (!StrKit.isBlank(taskId)) {
+                baseResponse = indexService.getTask(taskId);
+            } else {
+                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+        } finally {
+            renderJson(baseResponse);
+        }
+    }
+
+    /**
+     *
+     */
+    public void getClassification() {
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            String taskId = getPara("taskId");
+            String nodeId = getPara("nodeId");
+
+            if (!StrKit.isBlank(taskId) && !StrKit.isBlank(nodeId)) {
+                baseResponse = indexService.getClassification(taskId, nodeId);
+            } else {
+                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+        } finally {
+            renderJson(baseResponse);
+        }
+    }
+
+    public void getSimilarity() {
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            String taskId = getPara("taskId");
+            String nodeId1 = getPara("nodeId1");
+            String nodeId2 = getPara("nodeId2");
+
+            if (!StrKit.isBlank(taskId) && !StrKit.isBlank(nodeId1) && !StrKit.isBlank(nodeId2)) {
+                baseResponse = indexService.getSimilarity(taskId, nodeId1, nodeId2);
+            } else {
+                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+        } finally {
+            renderJson(baseResponse);
+        }
+    }
 }

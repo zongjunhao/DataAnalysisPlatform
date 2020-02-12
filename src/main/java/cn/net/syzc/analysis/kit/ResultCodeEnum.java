@@ -8,7 +8,7 @@ public enum ResultCodeEnum {
     UNKNOWN_ERROR("1003", "Unknown error, please try again."),
     REQUEST_NO_PARAM_ID_ERROR("1004", "页面请求参数错误"),
     DB_SYS_ERROR("1005", "数据库错误"),
-    RECORD_NO_EXIST("1006", "记录不存在"),
+    RECORD_NO_EXIST("1006", "No records in the database."),
 
     DB_CONNECTION_SUCCESS("200O", "数据库连接成功"),
     DB_CONNECTION_FAILURE("2001", "数据库连接失败"),
@@ -47,12 +47,14 @@ public enum ResultCodeEnum {
     MODIFY_SUCCESS("5005", "修改成功"),
 
     CATEGORY_QUERY_NULL("6000", "货品类别查询为空"),
-    CATEGORY_QUERY_SUCCESS("6001", "货品查询成功"),
+    TASK_QUERY_SUCCESS("6001", "Task query success."),
     GOODS_QUERY_SUCCESS("6002", "货品查询成功"),
     GOODS_QUERY_NULL("6003", "货品查询为空"),
-    GOODS_DELETE_SUCCESS("6004", "货品删除成功"),
-    GOODS_NOT_EXIST("6005", "货品不存在"),
-    GOODS_DELETE_FAILURE_DB_ERROR("6006", "货品删除失败_数据库错误"),
+
+    TASK_DELETE_SUCCESS("6004", "Task deleted successfully."),
+    TASK_NOT_EXIST("6005", "Task not exist."),
+    TASK_DELETE_FAILURE_DB_ERROR("6006", "Task deleted failed_database error."),
+
     GOODS_UPDATE_STATE_SUCCESS("6007", "货品修改状态成功"),
     GOODS_UPDATE_STATE_FAILURE_DB_ERROR("6008", "货品修改状态失败_数据库错误"),
     GOODS_FOLLOW_SUCCESS("6009", "货品添加关注成功"),
