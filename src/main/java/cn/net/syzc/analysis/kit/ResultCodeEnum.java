@@ -55,9 +55,10 @@ public enum ResultCodeEnum {
     TASK_NOT_EXIST("6005", "Task not exist."),
     TASK_DELETE_FAILURE_DB_ERROR("6006", "Task deleted failed_database error."),
 
-    GOODS_UPDATE_STATE_SUCCESS("6007", "货品修改状态成功"),
-    GOODS_UPDATE_STATE_FAILURE_DB_ERROR("6008", "货品修改状态失败_数据库错误"),
-    GOODS_FOLLOW_SUCCESS("6009", "货品添加关注成功"),
+    CLASSIFICATION_GET_SUCCESS("6007", "Get the classification number success."),
+    SIMILARITY_GET_SUCCESS("6008", "Get the similarity success."),
+    CALL_PYTHON_SCRIPTS_ERROR("6009", "Call the python scripts error."),
+
     GOODS_FOLLOW_FAILURE_DB_ERROR("6010", "货品添加关注失败_数据库错误"),
     GOODS_FOLLOW_QUERY_SUCCESS("6011", "货品关注查询成功"),
     GOODS_FOLLOW_QUERY_NULL("6012", "货品关注查询为空"),
