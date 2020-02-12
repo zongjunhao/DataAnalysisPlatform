@@ -18,8 +18,8 @@ public class Test {
         PythonInterpreter.initialize(properties, props, new String[0]);
 
         PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.execfile("C:\\Users\\zongjunhao\\Desktop\\demo.py");
-        PyFunction function = interpreter.get("wdd", PyFunction.class);
+        interpreter.execfile("D:\\Users\\pleasure\\Desktop\\DataAnalysisPlatform\\demo.py");
+        PyFunction function = interpreter.get("add", PyFunction.class);
         int a = 10;
         int b = 10;
         PyObject pyObject = function.__call__(new PyInteger(a), new PyInteger(b));
