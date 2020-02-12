@@ -58,6 +58,7 @@ public enum ResultCodeEnum {
     CLASSIFICATION_GET_SUCCESS("6007", "Get the classification number success."),
     SIMILARITY_GET_SUCCESS("6008", "Get the similarity success."),
     CALL_PYTHON_SCRIPTS_ERROR("6009", "Call the python scripts error."),
+    CALL_PYTHON_SCRIPTS_SUCCESS("6010", "Call the python scripts success."),
 
     GOODS_FOLLOW_FAILURE_DB_ERROR("6010", "货品添加关注失败_数据库错误"),
     GOODS_FOLLOW_QUERY_SUCCESS("6011", "货品关注查询成功"),

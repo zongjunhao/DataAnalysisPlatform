@@ -142,6 +142,9 @@ public class IndexController extends Controller {
         }
     }
 
+    /**
+     *
+     */
     public void getSimilarity() {
         BaseResponse baseResponse = new BaseResponse();
         try {

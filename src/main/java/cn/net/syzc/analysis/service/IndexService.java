@@ -1,6 +1,7 @@
 package cn.net.syzc.analysis.service;
 
 import cn.net.syzc.analysis.kit.BaseResponse;
+import cn.net.syzc.analysis.kit.CallPythonFile;
 import cn.net.syzc.analysis.kit.ResultCodeEnum;
 import cn.net.syzc.analysis.model.Task;
 import cn.net.syzc.analysis.model.User;
@@ -65,13 +66,26 @@ public class IndexService {
      */
     public BaseResponse getClassification(String taskId, String nodeId) {
         BaseResponse baseResponse = new BaseResponse();
+        String pythonFilePath = "D:\\Users\\pleasure\\Desktop\\DataAnalysisPlatform\\demo.py";
         // 调用python脚本获取节点的分类号
+        String[] args = new String[]{"python", pythonFilePath, taskId, nodeId};
+        baseResponse = CallPythonFile.callPythonScripts(args);
         return baseResponse;
     }
 
+    /**
+     *
+     * @param taskId
+     * @param nodeId1
+     * @param nodeId2
+     * @return
+     */
     public BaseResponse getSimilarity(String taskId, String nodeId1, String nodeId2) {
         BaseResponse baseResponse = new BaseResponse();
+        String pythonFilePath = "";
         // 调用python脚本获取进行链接预测的两个节点的相似度
+        String[] args = new String[]{"python", pythonFilePath, taskId, nodeId1, nodeId2};
+        baseResponse = CallPythonFile.callPythonScripts(args);
         return baseResponse;
     }
 }
