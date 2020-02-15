@@ -67,8 +67,8 @@ public enum ResultCodeEnum {
     COMMENT_FAILURE_DB_ERROR("6014", "评论失败"),
 
     GOODS_UPLOAD_FAILURE_DB_ERROR("6015", "货品上传失败_数据库错误"),
-    GOODS_UPLOAD_SUCCESS("6016", "货品上传成功"),
-    NOTICE_UPLOAD_FAILURE_DB_ERROR("6017", "货品上传失败_数据库错误"),
+    TASK_ADD_SUCCESS("6016", "Task added successfully."),
+    TASK_ADD_FAILURE_DB_ERROR("6017", "Task added fail_database error."),
     NOTICE_UPLOAD_SUCCESS("6018", "货品上传成功"),
     NOTICE_UPDATE_STATE_SUCCESS("6019", "求购信息修改状态成功"),
     NOTICE_UPDATE_STATE_FAILURE_DB_ERROR("6020", "求购信息修改状态失败_数据库错误"),

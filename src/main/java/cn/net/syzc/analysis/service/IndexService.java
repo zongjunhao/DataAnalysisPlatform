@@ -5,6 +5,7 @@ import cn.net.syzc.analysis.kit.CallPythonFile;
 import cn.net.syzc.analysis.kit.ResultCodeEnum;
 import cn.net.syzc.analysis.model.Task;
 import cn.net.syzc.analysis.model.User;
+import com.jfinal.upload.UploadFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,49 @@ public class IndexService {
         // 调用python脚本获取进行链接预测的两个节点的相似度
         String[] args = new String[]{"python", pythonFilePath, taskId, nodeId1, nodeId2};
         baseResponse = CallPythonFile.callPythonScripts(args);
+        return baseResponse;
+    }
+
+    /**
+     *
+     * @param u_id
+     * @param task_name
+     * @param algorithm_type
+     * @param uploadFiles
+     * @return
+     */
+    public BaseResponse addTask(String u_id, String task_name, String algorithm_type, List<UploadFile> uploadFiles) {
+        BaseResponse baseResponse = new BaseResponse();
+        Task task = new Task();
+        task.setUserID(Integer.parseInt(u_id));
+        task.setTaskName(task_name);
+        task.setAlgorithmType(algorithm_type);
+
+        String attriPath = null;
+        String edgePath = null;
+        String classificationPath = null;
+
+        switch (uploadFiles.size()) {
+            case 2:
+                attriPath = "upload/" + uploadFiles.get(0).getFileName();
+                task.setAttriFile(attriPath);
+                edgePath = "upload/" + uploadFiles.get(1).getFileName();
+                task.setEdgeFile(edgePath);
+                break;
+            case 3:
+                attriPath = "upload/" + uploadFiles.get(0).getFileName();
+                task.setAttriFile(attriPath);
+                edgePath = "upload/" + uploadFiles.get(1).getFileName();
+                task.setEdgeFile(edgePath);
+                classificationPath = "upload/" + uploadFiles.get(2).getFileName();
+                task.setEdgeFile(classificationPath);
+                break;
+        }
+        if (task.save()) {
+            baseResponse.setResult(ResultCodeEnum.TASK_ADD_SUCCESS);
+        } else {
+            baseResponse.setResult(ResultCodeEnum.TASK_ADD_FAILURE_DB_ERROR);
+        }
         return baseResponse;
     }
 }

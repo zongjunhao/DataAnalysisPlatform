@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,68 +18,73 @@
     <link rel="stylesheet" href="assets/lib/bootstrap-fileinput/css/fileinput.min.css">
     <link rel="stylesheet" href="assets/css/new_task.css">
 </head>
+
 <body>
-<div class="form-horizontal">
-    <div class="form-group">
-        <label for="task-name" class="control-label">
-            Task name<span class="required">*</span>:
-        </label>
-        <div>
-            <input id="task-name" name="task-name" class="form-control" type="text" placeholder="Task name"/>
-        </div>
+    <div class="form-horizontal">
+        <form action="addTask" id="form" enctype="multipart/form-data" method="post">
+            <input type="hidden" id="u_id" name="u_id"/>
+            <div class="form-group">
+                <label for="task-name" class="control-label">
+                    Task name<span class="required">*</span>:
+                </label>
+                <div>
+                    <input id="task-name" name="task-name" class="form-control" type="text" placeholder="Task name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="algorithm-type" class="control-label">
+                    Algorithm type<span class="required">*</span>:
+                </label>
+                <div>
+                    <select id="algorithm-type" class="form-control" name="algorithm-type">
+                        <option value="Node2Vec">Node2Vec</option>
+                        <option value="DeepWalk">DeepWalk</option>
+                        <option value="LINE">LINE</option>
+                        <option value="Graph-GCN">Graph-GCN</option>
+                        <option value="Graph-Mean">Graph-Mean</option>
+                        <option value="Graph-Pool">Graph-Pool</option>
+                        <option value="MF-GCN">MF-GCN</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" id="attri-div">
+                <label for="attri-file" class="control-label">
+                    <span class="">Attribute file<span class="required">*</span>:</span>
+                </label>
+                <div>
+                    <input id="attri-file" name="attri-file" class="form-control file" type="file"
+                        data-show-cancel="false" data-show-preview="false" />
+                </div>
+                <div>
+                    <input id="standardized" type="checkbox" />
+                    <label for="standardized">Has been standardized?</label>
+                </div>
+            </div>
+            <div class="form-group" id="edge-div">
+                <label for="edge-file" class="control-label">
+                    Edge file<span class="required">*</span>:
+                </label>
+                <div>
+                    <input id="edge-file" name="edge-file" class="form-control file" type="file"
+                        data-show-cancel="false" data-show-preview="false" />
+                </div>
+            </div>
+            <div class="form-group" id="classification-div">
+                <label for="classification-file" class="control-label">
+                    Classification file:
+                </label>
+                <div>
+                    <input id="classification-file" name="edge-file" class="form-control file" type="file"
+                        data-show-cancel="false" data-show-preview="false" />
+                </div>
+            </div>
+            <button class="btn add-task" onclick="add_task()">Create Task</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="algorithm-type" class="control-label">
-            Algorithm type<span class="required">*</span>:
-        </label>
-        <div>
-            <select id="algorithm-type" class="form-control">
-                <option value="Node2Vec">Node2Vec</option>
-                <option value="DeepWalk">DeepWalk</option>
-                <option value="LINE">LINE</option>
-                <option value="Graph-GCN">Graph-GCN</option>
-                <option value="Graph-Mean">Graph-Mean</option>
-                <option value="Graph-Pool">Graph-Pool</option>
-                <option value="MF-GCN">MF-GCN</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group" id="attri-div">
-        <label for="attri-file" class="control-label">
-            <span class="">Attribute file<span class="required">*</span>:</span>
-        </label>
-        <div>
-            <input id="attri-file" name="attri-file" class="form-control file" type="file" data-show-cancel="false"
-                   data-show-preview="false"/>
-        </div>
-        <div>
-            <input id="standardized" type="checkbox"/>
-            <label for="standardized">Has been standardized?</label>
-        </div>
-    </div>
-    <div class="form-group" id="edge-div">
-        <label for="edge-file" class="control-label">
-            Edge file<span class="required">*</span>:
-        </label>
-        <div>
-            <input id="edge-file" name="edge-file" class="form-control file" type="file" data-show-cancel="false"
-                   data-show-preview="false"/>
-        </div>
-    </div>
-    <div class="form-group" id="classification-div">
-        <label for="classification-file" class="control-label">
-            Classification file:
-        </label>
-        <div>
-            <input id="classification-file" name="edge-file" class="form-control file" type="file" data-show-cancel="false"
-                   data-show-preview="false"/>
-        </div>
-    </div>
-    <button class="btn add-task" onclick="add_task()" disabled>Create Task</button>
-</div>
-<script src="assets/lib/jquery/jquery-3.4.1.js"></script>
-<script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/lib/bootstrap-fileinput/js/fileinput.min.js"></script>
-<script src="assets/js/new_task.js"></script>
+    <script src="assets/lib/jquery/jquery-3.4.1.js"></script>
+    <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/lib/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="assets/js/new_task.js"></script>
 </body>
+
 </html>

@@ -7,6 +7,7 @@ import cn.net.syzc.analysis.model.User;
 import cn.net.syzc.analysis.service.IndexService;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
+import com.jfinal.upload.UploadFile;
 
 import java.util.List;
 
@@ -154,6 +155,30 @@ public class IndexController extends Controller {
 
             if (!StrKit.isBlank(taskId) && !StrKit.isBlank(nodeId1) && !StrKit.isBlank(nodeId2)) {
                 baseResponse = indexService.getSimilarity(taskId, nodeId1, nodeId2);
+            } else {
+                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+        } finally {
+            renderJson(baseResponse);
+        }
+    }
+
+    /**
+     *
+     */
+    public void addTask() {
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            List<UploadFile> uploadFiles = getFiles();
+            String u_id = getPara("u_id");
+            String task_name = getPara("task-name");
+            String algorithm_type = getPara("algorithm-type");
+
+            if (!StrKit.isBlank(u_id) && !StrKit.isBlank(task_name) && !StrKit.isBlank(algorithm_type)) {
+                baseResponse = indexService.addTask(u_id, task_name, algorithm_type, uploadFiles);
             } else {
                 baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
             }
