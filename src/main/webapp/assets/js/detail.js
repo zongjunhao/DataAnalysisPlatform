@@ -1,31 +1,16 @@
-// 节点
-var nodes = [{
-    name: '节点1',
-    nodeId: 0,
-}, {
-    name: '节点2',
-    nodeId: 1,
-}, {
-    name: '节点3',
-    nodeId: 2,
-}, {
-    name: '节点4',
-    nodeId: 3,
-}];
-// 边
-var sides = [];
 // 链接预测的两个节点
 var SimilarityCalculationNodes = [];
 // 点击节点是否进行链接预测的标志
 var flag = false;
 // 获取属性文件、边文件以及分类文件的路径
-$.document.ready(function () {
+$(document).ready(function () {
     $.ajax({
         type: "POST",
         url: "getTask",
         datatype: 'json',
         data: {
-            "taskId": $.session.get('viewedTaskId'),
+            // "taskId": $.session.get('viewedTaskId'),
+            "taskId": 1,
         }, // 发送数据
         error: function () {
             layer.msg('request failed', {
@@ -35,8 +20,9 @@ $.document.ready(function () {
         success: function (jsonobj) {
             if (jsonobj.resultCode === "6001") {//任务查询成功
                 console.log(jsonobj.data);
-
-                initCharm(jsonobj.data.AttriFile, jsonobj.data.EdgeFile, jsonobj.data.ClassFile);
+                let nodes = jsonobj.data.nodes;
+                let sides = jsonobj.data.sides;
+                initCharm(nodes, sides);
             } else {
                 layer.msg(jsonobj.resultDesc, {
                     time: 1000
@@ -46,7 +32,7 @@ $.document.ready(function () {
     });
 });
 // 初始化关系图
-function initCharm(attriFilePath, edgeFilePath, classFilePath) {
+function initCharm(nodes, sides) {
 
     // 基于准备好的dom，初始化echarts实例
     let myChart = echarts.init(document.getElementById('chart'));
@@ -74,35 +60,7 @@ function initCharm(attriFilePath, edgeFilePath, classFilePath) {
                     fontSize: 20
                 },
                 data: nodes,
-                // [{
-                //     name: '节点1',
-                //     nodeId: 0,
-                // }, {
-                //     name: '节点2',
-                //     nodeId: 1,
-                // }, {
-                //     name: '节点3',
-                //     nodeId: 2,
-                // }, {
-                //     name: '节点4',
-                //     nodeId: 3,
-                // }],
-                links: [{
-                    source: 0,
-                    target: 1,
-                }, {
-                    source: 0,
-                    target: 2,
-                }, {
-                    source: 1,
-                    target: 2,
-                }, {
-                    source: 1,
-                    target: 3,
-                }, {
-                    source: 0,
-                    target: 3,
-                }],
+                links: sides,
                 lineStyle: {
                     opacity: 0.9,
                     width: 2,
@@ -132,6 +90,32 @@ function initCharm(attriFilePath, edgeFilePath, classFilePath) {
 
 function getNodeAttri(nodeId) {
     console.log('获取节点ID为' + nodeId + '的详细信息');
+    $.ajax({
+        type: "POST",
+        url: "getTask",
+        datatype: 'json',
+        data: {
+            // "taskId": $.session.get('viewedTaskId'),
+            "taskId": 1,
+        }, // 发送数据
+        error: function () {
+            layer.msg('request failed', {
+                time: 1000
+            });
+        },
+        success: function (jsonobj) {
+            if (jsonobj.resultCode === "6001") {//任务查询成功
+                console.log(jsonobj.data);
+                let nodes = jsonobj.data.nodes;
+                let sides = jsonobj.data.sides;
+                initCharm(nodes, sides);
+            } else {
+                layer.msg(jsonobj.resultDesc, {
+                    time: 1000
+                });
+            }
+        },
+    });
     if (flag) {
         SimilarityCalculationNodes.push(nodeId);
     }

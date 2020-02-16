@@ -47,11 +47,10 @@ function add_task() {
             processData: false,
             data: formdata,
             success: function (res) {
-                // $("#loading").remove();
-                // location.href = getUrlParam("return");
-                // $.session.set("categoryId", "myGoods");
-                location.href = "index.html";
                 console.log(res);
+                if (res.resultCode === "6016") {
+                    location.href = "index.html";
+                }
             },
             error: function (res) {
                 console.log(res);

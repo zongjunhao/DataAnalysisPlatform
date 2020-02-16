@@ -9,6 +9,7 @@ public enum ResultCodeEnum {
     REQUEST_NO_PARAM_ID_ERROR("1004", "页面请求参数错误"),
     DB_SYS_ERROR("1005", "数据库错误"),
     RECORD_NO_EXIST("1006", "No records in the database."),
+    File_NO_EXIST("1006", "File not found."),
 
     DB_CONNECTION_SUCCESS("200O", "数据库连接成功"),
     DB_CONNECTION_FAILURE("2001", "数据库连接失败"),

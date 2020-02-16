@@ -1,8 +1,6 @@
 package cn.net.syzc.analysis.service;
 
-import cn.net.syzc.analysis.kit.BaseResponse;
-import cn.net.syzc.analysis.kit.CallPythonFile;
-import cn.net.syzc.analysis.kit.ResultCodeEnum;
+import cn.net.syzc.analysis.kit.*;
 import cn.net.syzc.analysis.model.Task;
 import cn.net.syzc.analysis.model.User;
 import com.jfinal.upload.UploadFile;
@@ -49,10 +47,43 @@ public class IndexService {
      */
     public BaseResponse getTask(String taskId) {
         BaseResponse baseResponse = new BaseResponse();
+        CharmDataSource charmDataSource = new CharmDataSource();
+        List<Node> nodes = new ArrayList<>();
+        List<Side> sides = new ArrayList<>();
+
         Task task = taskDao.findFirst("select * from task where id = ?", taskId);
         if (task != null) {
-            baseResponse.setData(task);
-            baseResponse.setResult(ResultCodeEnum.TASK_QUERY_SUCCESS);
+            String attriPath = task.getAttriFile();
+            String edgePath = task.getEdgeFile();
+            System.out.println(attriPath);
+            System.out.println(edgePath);
+//            String classificationPath = task.getClassFile();
+            try {
+                int[][] attriArray = ReadFile.getFile(attriPath);
+                for (int i = 0; i < attriArray.length; i++) {
+                    Node node = new Node();
+                    node.setNodeId(attriArray[i][0]);
+                    node.setName("节点" + attriArray[i][0]);
+                    nodes.add(node);
+                }
+
+                int[][] edgeArray = ReadFile.getFile(edgePath);
+                for (int i = 0; i < edgeArray.length; i++) {
+                   Side side = new Side();
+                   side.setSource(edgeArray[i][0]);
+                   side.setTarget(edgeArray[i][1]);
+                   sides.add(side);
+                }
+
+                charmDataSource.setNodes(nodes);
+                charmDataSource.setSides(sides);
+
+                baseResponse.setData(charmDataSource);
+                baseResponse.setResult(ResultCodeEnum.TASK_QUERY_SUCCESS);
+            } catch (Exception e) {
+                baseResponse.setResult(ResultCodeEnum.File_NO_EXIST);
+                e.printStackTrace();
+            }
         } else {
             baseResponse.setResult(ResultCodeEnum.TASK_NOT_EXIST);
         }
