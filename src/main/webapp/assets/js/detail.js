@@ -1,4 +1,5 @@
 var attri = [];
+var classification = [];
 // 链接预测的两个节点
 var SimilarityCalculationNodes = [];
 // 点击节点是否进行链接预测的标志
@@ -24,6 +25,7 @@ $(document).ready(function () {
                 let nodes = jsonobj.data.nodes;
                 let sides = jsonobj.data.sides;
                 attri = jsonobj.data.attri;
+                classification = jsonobj.data.classification;
                 initCharm(nodes, sides);
             } else {
                 layer.msg(jsonobj.resultDesc, {
@@ -110,6 +112,16 @@ function getNodeAttri(nodeId) {
             $(".table tbody").append(tableb);
         }
     });
+    if (classification == null) {
+        classification.forEach(element => {
+            if (element[0] === nodeId) {
+                console.log(element);
+                $(".node-classification p").html(element[1]);
+            }
+        });
+    } else {
+        getClassification(nodeId);
+    }
     if (flag) {
         SimilarityCalculationNodes.push(nodeId);
     }
@@ -139,9 +151,9 @@ function getClassification(nodeId) {
             });
         },
         success: function (jsonobj) {
-            if (jsonobj.resultCode === "4000") {//获取分类号成功
+            if (jsonobj.resultCode === "6007") {//获取分类号成功
                 console.log(jsonobj.data);
-                layer.msg(jsonobj.data);
+                $(".node-classification p").html(jsonobj.data);
             } else {
                 layer.msg(jsonobj.resultDesc, {
                     time: 1000
@@ -168,9 +180,8 @@ function getSimilarity() {
             });
         },
         success: function (jsonobj) {
-            if (jsonobj.resultCode === "4000") {//获取相似度成功
+            if (jsonobj.resultCode === "6008") {//获取相似度成功
                 console.log(jsonobj.data);
-                layer.msg(jsonobj.data);
                 layer.open({
                     type: 1,
                     title: 'Link Prediction',

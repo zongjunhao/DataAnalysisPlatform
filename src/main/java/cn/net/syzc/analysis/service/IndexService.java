@@ -55,9 +55,8 @@ public class IndexService {
         if (task != null) {
             String attriPath = task.getAttriFile();
             String edgePath = task.getEdgeFile();
-            System.out.println(attriPath);
-            System.out.println(edgePath);
-//            String classificationPath = task.getClassFile();
+            String classificationPath = task.getClassFile();
+
             try {
                 int[][] attriArray = ReadFile.getFile(attriPath);
                 for (int i = 0; i < attriArray.length; i++) {
@@ -73,6 +72,11 @@ public class IndexService {
                    side.setSource(edgeArray[i][0]);
                    side.setTarget(edgeArray[i][1]);
                    sides.add(side);
+                }
+
+                if (!classificationPath.equals("")) {
+                    int[][] classificationArray = ReadFile.getFile(classificationPath);
+                    charmDataSource.setClassification(classificationArray);
                 }
 
                 charmDataSource.setNodes(nodes);
@@ -98,21 +102,6 @@ public class IndexService {
      * @return
      */
     public BaseResponse getClassification(String taskId, String nodeId) {
-        BaseResponse baseResponse = new BaseResponse();
-        String pythonFilePath = "D:\\Users\\pleasure\\Desktop\\DataAnalysisPlatform\\demo.py";
-        // 调用python脚本获取节点的分类号
-        String[] args = new String[]{"python", pythonFilePath, taskId, nodeId};
-        baseResponse = CallPythonFile.callPythonScripts(args);
-        return baseResponse;
-    }
-
-    /**
-     *
-     * @param taskId
-     * @param nodeId
-     * @return
-     */
-    public BaseResponse getAttribution(String taskId, String nodeId) {
         BaseResponse baseResponse = new BaseResponse();
         String pythonFilePath = "D:\\Users\\pleasure\\Desktop\\DataAnalysisPlatform\\demo.py";
         // 调用python脚本获取节点的分类号

@@ -7,6 +7,15 @@ public class CharmDataSource {
     List<Node> nodes = new ArrayList<>();
     List<Side> sides = new ArrayList<>();
     int[][] attri;
+    int[][] classification;
+
+    public int[][] getClassification() {
+        return classification;
+    }
+
+    public void setClassification(int[][] classification) {
+        this.classification = classification;
+    }
 
     public int[][] getAttri() {
         return attri;
