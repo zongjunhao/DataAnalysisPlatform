@@ -1,3 +1,4 @@
+var attri = [];
 // 链接预测的两个节点
 var SimilarityCalculationNodes = [];
 // 点击节点是否进行链接预测的标志
@@ -22,6 +23,7 @@ $(document).ready(function () {
                 console.log(jsonobj.data);
                 let nodes = jsonobj.data.nodes;
                 let sides = jsonobj.data.sides;
+                attri = jsonobj.data.attri;
                 initCharm(nodes, sides);
             } else {
                 layer.msg(jsonobj.resultDesc, {
@@ -90,31 +92,23 @@ function initCharm(nodes, sides) {
 
 function getNodeAttri(nodeId) {
     console.log('获取节点ID为' + nodeId + '的详细信息');
-    $.ajax({
-        type: "POST",
-        url: "getTask",
-        datatype: 'json',
-        data: {
-            // "taskId": $.session.get('viewedTaskId'),
-            "taskId": 1,
-        }, // 发送数据
-        error: function () {
-            layer.msg('request failed', {
-                time: 1000
-            });
-        },
-        success: function (jsonobj) {
-            if (jsonobj.resultCode === "6001") {//任务查询成功
-                console.log(jsonobj.data);
-                let nodes = jsonobj.data.nodes;
-                let sides = jsonobj.data.sides;
-                initCharm(nodes, sides);
-            } else {
-                layer.msg(jsonobj.resultDesc, {
-                    time: 1000
-                });
+    let tableh = "<tr>";
+    let tableb = "<tr>";
+    attri.forEach(element => {
+        if (element[0] === nodeId) {
+            console.log(element);
+            $(".node h3 span").html(element[0]);
+            for (var i = 1; i < element.length; i++) {
+                tableh += "<th>" + "attr" + (i) + "</th>";
+                tableb += "<td>" + element[i] + "</td>";
             }
-        },
+            tableh += "</tr>";
+            tableb += "</tr>"
+            $(".table thead").empty();
+            $(".table tbody").empty();
+            $(".table thead").append(tableh);
+            $(".table tbody").append(tableb);
+        }
     });
     if (flag) {
         SimilarityCalculationNodes.push(nodeId);

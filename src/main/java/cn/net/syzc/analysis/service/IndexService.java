@@ -77,6 +77,7 @@ public class IndexService {
 
                 charmDataSource.setNodes(nodes);
                 charmDataSource.setSides(sides);
+                charmDataSource.setAttri(attriArray);
 
                 baseResponse.setData(charmDataSource);
                 baseResponse.setResult(ResultCodeEnum.TASK_QUERY_SUCCESS);
@@ -97,6 +98,21 @@ public class IndexService {
      * @return
      */
     public BaseResponse getClassification(String taskId, String nodeId) {
+        BaseResponse baseResponse = new BaseResponse();
+        String pythonFilePath = "D:\\Users\\pleasure\\Desktop\\DataAnalysisPlatform\\demo.py";
+        // 调用python脚本获取节点的分类号
+        String[] args = new String[]{"python", pythonFilePath, taskId, nodeId};
+        baseResponse = CallPythonFile.callPythonScripts(args);
+        return baseResponse;
+    }
+
+    /**
+     *
+     * @param taskId
+     * @param nodeId
+     * @return
+     */
+    public BaseResponse getAttribution(String taskId, String nodeId) {
         BaseResponse baseResponse = new BaseResponse();
         String pythonFilePath = "D:\\Users\\pleasure\\Desktop\\DataAnalysisPlatform\\demo.py";
         // 调用python脚本获取节点的分类号

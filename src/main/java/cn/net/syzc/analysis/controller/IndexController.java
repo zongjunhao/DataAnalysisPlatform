@@ -146,6 +146,28 @@ public class IndexController extends Controller {
     /**
      *
      */
+    public void getAttribution() {
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            String taskId = getPara("taskId");
+            String nodeId = getPara("nodeId");
+
+            if (!StrKit.isBlank(taskId) && !StrKit.isBlank(nodeId)) {
+                baseResponse = indexService.getAttribution(taskId, nodeId);
+            } else {
+                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+        } finally {
+            renderJson(baseResponse);
+        }
+    }
+
+    /**
+     *
+     */
     public void getSimilarity() {
         BaseResponse baseResponse = new BaseResponse();
         try {

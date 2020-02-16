@@ -6,6 +6,15 @@ import java.util.List;
 public class CharmDataSource {
     List<Node> nodes = new ArrayList<>();
     List<Side> sides = new ArrayList<>();
+    int[][] attri;
+
+    public int[][] getAttri() {
+        return attri;
+    }
+
+    public void setAttri(int[][] attri) {
+        this.attri = attri;
+    }
 
     public List<Node> getNodes() {
         return nodes;
