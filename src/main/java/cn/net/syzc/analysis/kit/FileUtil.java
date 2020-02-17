@@ -55,8 +55,10 @@ public class FileUtil {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String newFileName = sdf.format(new Date()) + "_" + uploadFile.getFileName();
-        String path = "upload/" + newFileName;
+        System.out.println("newFileName: " + newFileName);
+        String path = "/upload/" + newFileName;
         String absoluteString = PathKit.getWebRootPath() + path;
+        System.out.println("absoluteString: " + absoluteString);
         File newFile = new File(absoluteString);
         uploadFile.getFile().renameTo(newFile);
         return path;
