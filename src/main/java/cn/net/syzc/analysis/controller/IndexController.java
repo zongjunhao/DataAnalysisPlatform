@@ -9,6 +9,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.upload.UploadFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -172,7 +173,13 @@ public class IndexController extends Controller {
     public void addTask() {
         BaseResponse baseResponse = new BaseResponse();
         try {
-            List<UploadFile> uploadFiles = getFiles();
+            List<UploadFile> uploadFiles = new ArrayList<>();
+            UploadFile attriFile = getFile("attri-file");
+            UploadFile edgeFile = getFile("edge-file");
+            UploadFile classificationFile = getFile("classification-file");
+            uploadFiles.add(0, attriFile);
+            uploadFiles.add(1, edgeFile);
+            uploadFiles.add(2, classificationFile);
 //            String u_id = getPara("u_id");
             String u_id = "1";
             String task_name = getPara("task-name");

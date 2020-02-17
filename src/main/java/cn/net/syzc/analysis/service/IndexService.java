@@ -158,7 +158,7 @@ public class IndexService {
                 edgePath = FileUtil.rename(uploadFiles.get(1));
                 task.setEdgeFile(edgePath);
                 classificationPath = FileUtil.rename(uploadFiles.get(2));
-                task.setEdgeFile(classificationPath);
+                task.setClassFile(classificationPath);
                 break;
         }
         if (task.save()) {
