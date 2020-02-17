@@ -173,7 +173,8 @@ public class IndexController extends Controller {
         BaseResponse baseResponse = new BaseResponse();
         try {
             List<UploadFile> uploadFiles = getFiles();
-            String u_id = getPara("u_id");
+//            String u_id = getPara("u_id");
+            String u_id = "1";
             String task_name = getPara("task-name");
             String algorithm_type = getPara("algorithm-type");
 

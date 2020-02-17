@@ -144,20 +144,20 @@ public class IndexService {
         String attriPath = null;
         String edgePath = null;
         String classificationPath = null;
-
+        System.out.println("上传文件数：" + uploadFiles.size());
         switch (uploadFiles.size()) {
             case 2:
-                attriPath = "upload/" + FileUtil.rename(uploadFiles.get(0));
+                attriPath = FileUtil.rename(uploadFiles.get(0));
                 task.setAttriFile(attriPath);
-                edgePath = "upload/" + FileUtil.rename(uploadFiles.get(1));
+                edgePath = FileUtil.rename(uploadFiles.get(1));
                 task.setEdgeFile(edgePath);
                 break;
             case 3:
-                attriPath = "upload/" + FileUtil.rename(uploadFiles.get(0));
+                attriPath = FileUtil.rename(uploadFiles.get(0));
                 task.setAttriFile(attriPath);
-                edgePath = "upload/" + FileUtil.rename(uploadFiles.get(1));
+                edgePath = FileUtil.rename(uploadFiles.get(1));
                 task.setEdgeFile(edgePath);
-                classificationPath = "upload/" + FileUtil.rename(uploadFiles.get(2));
+                classificationPath = FileUtil.rename(uploadFiles.get(2));
                 task.setEdgeFile(classificationPath);
                 break;
         }

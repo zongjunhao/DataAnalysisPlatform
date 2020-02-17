@@ -22,7 +22,6 @@ function add_task() {
     // $("#classification-file").fileinput('enable');
     attriFileInput = $('#attri-file').get(0).files[0];
     edgeFileInput = $('#edge-file').get(0).files[0];
-
     if (taskName === "") {
         alert("Please enter a task name!");
     } else if (algorithm === "") {
@@ -34,7 +33,9 @@ function add_task() {
     } else if (edgeFileInput == null) {
         alert("Please select an edge file!");
     } else {
-        $("#u_id").val($.session.get("UserId"));
+        // $("#u_id").val($.session.get("UserId"));
+        $(".UserId").html(1);
+        console.log($(".UserId").text());
         var formdata = new FormData(document.getElementById("form"));
         console.log(formdata);
         $.ajax({
