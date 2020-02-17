@@ -51,7 +51,8 @@ function add_task() {
                 console.log(res.resultDesc);
                 if (res.resultCode === "6016") {
                     console.log("success");
-                    location.href = "index.html";
+                    parent.window.location.reload();
+                    // location.href = "index.html";
                 }
             },
             error: function (res) {

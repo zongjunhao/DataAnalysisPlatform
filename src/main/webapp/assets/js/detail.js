@@ -112,7 +112,7 @@ function getNodeAttri(nodeId) {
             $(".table tbody").append(tableb);
         }
     });
-    if (classification == null) {
+    if (classification != null) {
         classification.forEach(element => {
             if (element[0] === nodeId) {
                 console.log(element);
@@ -142,7 +142,8 @@ function getClassification(nodeId) {
         url: "getClassification",
         datatype: 'json',
         data: {
-            "taskId": $.session.get('taskId'),
+            // "taskId": $.session.get('taskId'),
+            "taskId": 1,
             "nodeId": nodeId,
         }, // 发送数据
         error: function () {
@@ -170,9 +171,10 @@ function getSimilarity() {
         url: "getSimilarity",
         datatype: 'json',
         data: {
-            "taskId": $.session.get('taskId'),
-            "nodeId1": nodes[0],
-            "nodeId2": nodes[1],
+            // "taskId": $.session.get('taskId'),
+            "taskId": 1,
+            "nodeId1": SimilarityCalculationNodes[0],
+            "nodeId2": SimilarityCalculationNodes[1],
         }, // 发送数据
         error: function () {
             layer.msg('request failed', {
