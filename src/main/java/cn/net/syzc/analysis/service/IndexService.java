@@ -3,6 +3,7 @@ package cn.net.syzc.analysis.service;
 import cn.net.syzc.analysis.kit.*;
 import cn.net.syzc.analysis.model.Task;
 import cn.net.syzc.analysis.model.User;
+import com.jfinal.kit.PathKit;
 import com.jfinal.upload.UploadFile;
 
 import java.io.File;
@@ -54,9 +55,9 @@ public class IndexService {
 
         Task task = taskDao.findFirst("select * from task where id = ?", taskId);
         if (task != null) {
-            String attriPath = task.getAttriFile();
-            String edgePath = task.getEdgeFile();
-            String classificationPath = task.getClassFile();
+            String attriPath = PathKit.getWebRootPath() + task.getAttriFile();
+            String edgePath = PathKit.getWebRootPath() + task.getEdgeFile();
+            String classificationPath = PathKit.getWebRootPath() + task.getClassFile();
 
             try {
                 int[][] attriArray = FileUtil.readFile(new File(attriPath));

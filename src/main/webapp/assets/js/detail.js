@@ -11,8 +11,7 @@ $(document).ready(function () {
         url: "getTask",
         datatype: 'json',
         data: {
-            // "taskId": $.session.get('viewedTaskId'),
-            "taskId": 1,
+            "taskId": $.session.get('viewedTaskId'),
         }, // 发送数据
         error: function () {
             layer.msg('request failed', {
@@ -142,8 +141,7 @@ function getClassification(nodeId) {
         url: "getClassification",
         datatype: 'json',
         data: {
-            // "taskId": $.session.get('taskId'),
-            "taskId": 1,
+            "taskId": $.session.get('viewedTaskId'),
             "nodeId": nodeId,
         }, // 发送数据
         error: function () {
@@ -171,8 +169,7 @@ function getSimilarity() {
         url: "getSimilarity",
         datatype: 'json',
         data: {
-            // "taskId": $.session.get('taskId'),
-            "taskId": 1,
+            "taskId": $.session.get('viewedTaskId'),
             "nodeId1": SimilarityCalculationNodes[0],
             "nodeId2": SimilarityCalculationNodes[1],
         }, // 发送数据
