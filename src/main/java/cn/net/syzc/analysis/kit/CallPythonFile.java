@@ -2,6 +2,7 @@ package cn.net.syzc.analysis.kit;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class CallPythonFile {
 
@@ -12,7 +13,7 @@ public class CallPythonFile {
         try {
             Process process = Runtime.getRuntime().exec(args);
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),
-                    "UTF-8"));
+                    StandardCharsets.UTF_8));
             String line = null;
             while ((line = in.readLine()) != null) {
                 pyReInfo.append(line);

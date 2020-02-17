@@ -18,6 +18,7 @@ public class IndexController extends Controller {
 
     public void index() {
         getSessionAttr("user_id");
+        render("/login.html");
     }
 
     public void login() {

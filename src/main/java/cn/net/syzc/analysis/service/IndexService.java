@@ -5,6 +5,7 @@ import cn.net.syzc.analysis.model.Task;
 import cn.net.syzc.analysis.model.User;
 import com.jfinal.upload.UploadFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class IndexService {
             String classificationPath = task.getClassFile();
 
             try {
-                int[][] attriArray = FileUtil.getFile(attriPath);
+                int[][] attriArray = FileUtil.readFile(new File(attriPath));
                 for (int i = 0; i < attriArray.length; i++) {
                     Node node = new Node();
                     node.setNodeId(attriArray[i][0]);
@@ -66,7 +67,7 @@ public class IndexService {
                     nodes.add(node);
                 }
 
-                int[][] edgeArray = FileUtil.getFile(edgePath);
+                int[][] edgeArray = FileUtil.readFile(new File(edgePath));
                 for (int i = 0; i < edgeArray.length; i++) {
                    Side side = new Side();
                    side.setSource(edgeArray[i][0]);
@@ -75,7 +76,7 @@ public class IndexService {
                 }
 
                 if (!classificationPath.equals("")) {
-                    int[][] classificationArray = FileUtil.getFile(classificationPath);
+                    int[][] classificationArray = FileUtil.readFile(new File(classificationPath));
                     charmDataSource.setClassification(classificationArray);
                 }
 
