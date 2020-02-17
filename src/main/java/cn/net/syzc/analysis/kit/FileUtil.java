@@ -1,12 +1,17 @@
 package cn.net.syzc.analysis.kit;
 
+import com.jfinal.kit.PathKit;
+import com.jfinal.upload.UploadFile;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class ReadFile {
+public class FileUtil {
 
     public static int[][] getFile(String pathName) throws Exception {
         File file = new File(pathName);
@@ -39,5 +44,21 @@ public class ReadFile {
             }
         }
         return array;
+    }
+
+    /**
+     *
+     * @param uploadFile
+     * @return
+     */
+    public static String rename(UploadFile uploadFile) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String newFileName = sdf.format(new Date()) + "_" + uploadFile.getFileName();
+        String path = "upload/" + newFileName;
+        String absoluteString = PathKit.getWebRootPath() + path;
+        File newFile = new File(absoluteString);
+        uploadFile.getFile().renameTo(newFile);
+        return path;
     }
 }

@@ -58,7 +58,7 @@ public class IndexService {
             String classificationPath = task.getClassFile();
 
             try {
-                int[][] attriArray = ReadFile.getFile(attriPath);
+                int[][] attriArray = FileUtil.getFile(attriPath);
                 for (int i = 0; i < attriArray.length; i++) {
                     Node node = new Node();
                     node.setNodeId(attriArray[i][0]);
@@ -66,7 +66,7 @@ public class IndexService {
                     nodes.add(node);
                 }
 
-                int[][] edgeArray = ReadFile.getFile(edgePath);
+                int[][] edgeArray = FileUtil.getFile(edgePath);
                 for (int i = 0; i < edgeArray.length; i++) {
                    Side side = new Side();
                    side.setSource(edgeArray[i][0]);
@@ -75,7 +75,7 @@ public class IndexService {
                 }
 
                 if (!classificationPath.equals("")) {
-                    int[][] classificationArray = ReadFile.getFile(classificationPath);
+                    int[][] classificationArray = FileUtil.getFile(classificationPath);
                     charmDataSource.setClassification(classificationArray);
                 }
 
@@ -147,17 +147,17 @@ public class IndexService {
 
         switch (uploadFiles.size()) {
             case 2:
-                attriPath = "upload/" + uploadFiles.get(0).getFileName();
+                attriPath = "upload/" + FileUtil.rename(uploadFiles.get(0));
                 task.setAttriFile(attriPath);
-                edgePath = "upload/" + uploadFiles.get(1).getFileName();
+                edgePath = "upload/" + FileUtil.rename(uploadFiles.get(1));
                 task.setEdgeFile(edgePath);
                 break;
             case 3:
-                attriPath = "upload/" + uploadFiles.get(0).getFileName();
+                attriPath = "upload/" + FileUtil.rename(uploadFiles.get(0));
                 task.setAttriFile(attriPath);
-                edgePath = "upload/" + uploadFiles.get(1).getFileName();
+                edgePath = "upload/" + FileUtil.rename(uploadFiles.get(1));
                 task.setEdgeFile(edgePath);
-                classificationPath = "upload/" + uploadFiles.get(2).getFileName();
+                classificationPath = "upload/" + FileUtil.rename(uploadFiles.get(2));
                 task.setEdgeFile(classificationPath);
                 break;
         }
