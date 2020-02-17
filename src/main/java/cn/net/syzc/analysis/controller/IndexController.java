@@ -183,13 +183,13 @@ public class IndexController extends Controller {
             if (classificationFile != null) {
                 uploadFiles.add(2, classificationFile);
             }
-//            String u_id = getPara("u_id");
-            String u_id = "1";
+            Integer UserId = getSessionAttr("user_id");
+
             String task_name = getPara("task-name");
             String algorithm_type = getPara("algorithm-type");
 
-            if (!StrKit.isBlank(u_id) && !StrKit.isBlank(task_name) && !StrKit.isBlank(algorithm_type)) {
-                baseResponse = indexService.addTask(u_id, task_name, algorithm_type, uploadFiles);
+            if (!StrKit.isBlank(UserId.toString()) && !StrKit.isBlank(task_name) && !StrKit.isBlank(algorithm_type)) {
+                baseResponse = indexService.addTask(UserId.toString(), task_name, algorithm_type, uploadFiles);
             } else {
                 baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
             }

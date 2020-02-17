@@ -33,9 +33,6 @@ function add_task() {
     } else if (edgeFileInput == null) {
         alert("Please select an edge file!");
     } else {
-        // $("#u_id").val($.session.get("UserId"));
-        $(".UserId").html(1);
-        console.log($(".UserId").text());
         var formdata = new FormData(document.getElementById("form"));
         console.log(formdata);
         $.ajax({

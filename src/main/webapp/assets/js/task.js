@@ -21,7 +21,7 @@ $(document).ready(function () {
 
                     let status;
 
-                    if (value.EndTime === "") {
+                    if (value.EndTime == null) {
                         status = "<td>" + "Trading" + "</td>" +
                             "<td>" + "</td>"
                     } else {
