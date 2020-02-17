@@ -1,4 +1,7 @@
 init();
+setInterval(function () {
+    window.location.reload();
+}, 1000*60*5);
 
 function init() {
     page("task");

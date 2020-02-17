@@ -22,13 +22,13 @@ $(document).ready(function () {
                     let status;
 
                     if (value.EndTime == null) {
-                        status = "<td>" + "Trading" + "</td>" +
+                        status = "<td>" + "Training" + "</td>" +
                             "<td>" + "</td>"
                     } else {
                         status = "<td>" + "Finish" + "</td>" +
                             "<td>" +
-                            '<button class="btn btn-xs btn-default" onclick="viewResult(' + value.id + ')">View</button>' +
-                            '<button class="btn btn-xs btn-default" onclick="deleteTask(' + value.id + ')">Delete</button>' +
+                            '<button class="btn btn-xs btn-primary" onclick="viewResult(' + value.id + ')">View</button>' +
+                            '<button class="btn btn-xs btn-danger" onclick="deleteTask(' + value.id + ')">Delete</button>' +
                             "</td>"
                     }
                     table += "<tr>" +
@@ -82,7 +82,8 @@ function deleteTask(taskId) {
 
 function viewResult(taskId) {
     $.session.set('viewedTaskId', taskId);
-    window.location.href = "detail.html"
+    page("detail");
+    // window.location.href = "detail.html"
 }
 
 

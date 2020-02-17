@@ -16,3 +16,8 @@
 .embed-responsive-16by9{
     padding-bottom: 38%;
 }
+
+tr td:last-child {
+    display: flex;
+    justify-content: space-evenly;
+}

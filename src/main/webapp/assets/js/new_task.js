@@ -10,7 +10,6 @@ $(document).ready(function () {
     // $("#classification-file").fileinput('enable');
     var attriFileInput;
     var edgeFileInput;
-
 });
 
 
