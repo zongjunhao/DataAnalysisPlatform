@@ -48,13 +48,14 @@ function add_task() {
             processData: false,
             data: formdata,
             success: function (res) {
-                console.log(res);
+                console.log(res.resultDesc);
                 if (res.resultCode === "6016") {
+                    console.log("success");
                     location.href = "index.html";
                 }
             },
             error: function (res) {
-                console.log(res);
+                console.log(res.resultDesc);
             }
         });
     }

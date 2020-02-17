@@ -180,7 +180,9 @@ public class IndexController extends Controller {
             UploadFile classificationFile = getFile("classification-file");
             uploadFiles.add(0, attriFile);
             uploadFiles.add(1, edgeFile);
-            uploadFiles.add(2, classificationFile);
+            if (classificationFile != null) {
+                uploadFiles.add(2, classificationFile);
+            }
 //            String u_id = getPara("u_id");
             String u_id = "1";
             String task_name = getPara("task-name");
