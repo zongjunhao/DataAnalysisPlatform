@@ -45,10 +45,13 @@ function add_task() {
             data: formdata,
             success: function (res) {
                 console.log(res.resultDesc);
-                if (res.resultCode === "6016") {
-                    console.log("success");
+                layer.msg(res.resultDesc, {
+                    time: 1500
+                });
+                if (res.resultCode === "1008") {
+                    window.location.href = "login.html";
+                } else if (res.resultCode === "6016") {
                     parent.window.location.reload();
-                    // location.href = "index.html";
                 }
             },
             error: function (res) {

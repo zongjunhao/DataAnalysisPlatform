@@ -23,6 +23,11 @@ $(document).ready(function () {
                 console.log(jsonobj.data);
                 let nodes = jsonobj.data.nodes;
                 let sides = jsonobj.data.sides;
+
+                $('#start-time').text(jsonobj.data.task.StartTime);
+                $('#end-time').text(jsonobj.data.task.EndTime);
+                $('.message-body').text(jsonobj.data.task.Messages);
+
                 attri = jsonobj.data.attri;
                 classification = jsonobj.data.classification;
                 initCharm(nodes, sides);
@@ -98,7 +103,7 @@ function getNodeAttri(nodeId) {
     attri.forEach(element => {
         if (element[0] === nodeId) {
             console.log(element);
-            $(".node h3 span").html(element[0]);
+            $(".node h3 span").text(element[0]);
             for (var i = 1; i < element.length; i++) {
                 tableh += "<th>" + "attr" + (i) + "</th>";
                 tableb += "<td>" + element[i] + "</td>";
@@ -132,6 +137,9 @@ function getNodeAttri(nodeId) {
 
 function switchMode() {
     console.log('获取相似度');
+    layer.msg("Please select two nodes in turn for link prediction.", {
+        time: 2000
+    });
     flag = true;
 }
 
@@ -152,7 +160,7 @@ function getClassification(nodeId) {
         success: function (jsonobj) {
             if (jsonobj.resultCode === "6007") {//获取分类号成功
                 console.log(jsonobj.data);
-                $(".node-classification p").html(jsonobj.data);
+                $(".node-classification p").text(jsonobj.data);
             } else {
                 layer.msg(jsonobj.resultDesc, {
                     time: 1000
@@ -196,5 +204,6 @@ function getSimilarity() {
             }
         },
     });
+    // set to empty
     SimilarityCalculationNodes = [];
 }

@@ -9,7 +9,8 @@ public enum ResultCodeEnum {
     REQUEST_NO_PARAM_ID_ERROR("1004", "页面请求参数错误"),
     DB_SYS_ERROR("1005", "数据库错误"),
     RECORD_NO_EXIST("1006", "No records in the database."),
-    File_NO_EXIST("1006", "File not found."),
+    File_NO_EXIST("1007", "File not found."),
+    USER_NOT_LOGIN("1008", "User not login."),
 
     DB_CONNECTION_SUCCESS("200O", "数据库连接成功"),
     DB_CONNECTION_FAILURE("2001", "数据库连接失败"),
@@ -30,7 +31,7 @@ public enum ResultCodeEnum {
     PARA_PASSWORD_ERROR("3004", "错误的密码格式"),
 
     LOGIN_SUCCESS("4000", "Login success."),
-    LOGIN_ERROR("4001", "登录失败_账号或密码错误"),
+    LOGIN_ERROR("4001", "Login failed, password error."),
     NO_EXIST_USER("4002", "Login failed, user dose not exist."),
     NO_ENOUGH_MES("4003", "登录失败_账号或密码为空"),
     LOGOUT_SUCCESS("4004", "退出登录成功"),

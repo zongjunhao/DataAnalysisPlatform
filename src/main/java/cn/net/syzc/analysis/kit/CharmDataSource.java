@@ -1,13 +1,24 @@
 package cn.net.syzc.analysis.kit;
 
+import cn.net.syzc.analysis.model.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CharmDataSource {
+    Task task = new Task();
     List<Node> nodes = new ArrayList<>();
     List<Side> sides = new ArrayList<>();
     int[][] attri;
     int[][] classification;
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
 
     public int[][] getClassification() {
         return classification;

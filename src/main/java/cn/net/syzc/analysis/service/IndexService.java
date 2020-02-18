@@ -84,6 +84,7 @@ public class IndexService {
                 charmDataSource.setNodes(nodes);
                 charmDataSource.setSides(sides);
                 charmDataSource.setAttri(attriArray);
+                charmDataSource.setTask(task);
 
                 baseResponse.setData(charmDataSource);
                 baseResponse.setResult(ResultCodeEnum.TASK_QUERY_SUCCESS);

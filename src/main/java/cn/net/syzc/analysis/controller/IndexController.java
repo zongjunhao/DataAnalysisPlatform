@@ -32,6 +32,8 @@ public class IndexController extends Controller {
                     if (user.getUserPassword().equals(password)) {
                         baseResponse.setResult(ResultCodeEnum.LOGIN_SUCCESS);
                         setSessionAttr("user_id", user.getUserID());
+                    } else {
+                        baseResponse.setResult(ResultCodeEnum.LOGIN_ERROR);
                     }
                 } else {
                     baseResponse.setResult(ResultCodeEnum.NO_EXIST_USER);
@@ -46,6 +48,24 @@ public class IndexController extends Controller {
             renderJson(baseResponse);
         }
     }
+
+//    /**
+//     *
+//     */
+//    public void judgeLogin() {
+//        BaseResponse baseResponse = new BaseResponse();
+//        try {
+//            Integer UserId = getSessionAttr("user_id");
+//            if (UserId == null) {
+//                baseResponse.setResult(ResultCodeEnum.USER_NOT_LOGIN);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+//        } finally {
+//            renderJson(baseResponse);
+//        }
+//    }
 
     public void logout() {
         BaseResponse baseResponse = new BaseResponse();
@@ -68,12 +88,16 @@ public class IndexController extends Controller {
         BaseResponse baseResponse = new BaseResponse();
         try {
             Integer UserId = getSessionAttr("user_id");
-            if (!StrKit.isBlank(UserId.toString())) {
-                List<Task> taskList = indexService.getTaskList(UserId);
-                baseResponse.setData(taskList);
-                baseResponse.setResult(ResultCodeEnum.DB_FIND_SUCCESS);
+            if (UserId != null) {
+                if (!StrKit.isBlank(UserId.toString())) {
+                    List<Task> taskList = indexService.getTaskList(UserId);
+                    baseResponse.setData(taskList);
+                    baseResponse.setResult(ResultCodeEnum.DB_FIND_SUCCESS);
+                } else {
+                    baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+                }
             } else {
-                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+                baseResponse.setResult(ResultCodeEnum.USER_NOT_LOGIN);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -193,6 +217,7 @@ public class IndexController extends Controller {
             } else {
                 baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);

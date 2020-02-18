@@ -43,6 +43,9 @@ $(document).ready(function () {
                 $(".table tbody").append(table)
             } else if (res.resultCode === "1006") {
                 console.log("No records in the database.")
+            } else if (res.resultCode === "1008") {
+                alert(res.resultDesc);
+                window.location.href = "login.html";
             }
             console.log("open dataTable");
             // $("#dataTables-example").dataTable();
