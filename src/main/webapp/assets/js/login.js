@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    
+    if (!(typeof($.cookie("username")) === "undefined")) {
+        window.location.href = "index.html";
+    }
+});
 function checkStandard(element) {
     let content = $("#signin-" + element).val();
     switch (element) {
