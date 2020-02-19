@@ -60,7 +60,7 @@ public class IndexService {
             String classificationPath = PathKit.getWebRootPath() + task.getClassFile();
 
             try {
-                int[][] attriArray = FileUtil.readFile(new File(attriPath));
+                int[][] attriArray = FileUtil.readFile(new File(attriPath)).getValue();
                 for (int i = 0; i < attriArray.length; i++) {
                     Node node = new Node();
                     node.setNodeId(attriArray[i][0]);
@@ -68,7 +68,7 @@ public class IndexService {
                     nodes.add(node);
                 }
 
-                int[][] edgeArray = FileUtil.readFile(new File(edgePath));
+                int[][] edgeArray = FileUtil.readFile(new File(edgePath)).getValue();
                 for (int i = 0; i < edgeArray.length; i++) {
                    Side side = new Side();
                    side.setSource(edgeArray[i][0]);
@@ -77,7 +77,7 @@ public class IndexService {
                 }
 
                 if (!classificationPath.equals("")) {
-                    int[][] classificationArray = FileUtil.readFile(new File(classificationPath));
+                    int[][] classificationArray = FileUtil.readFile(new File(classificationPath)).getValue();
                     charmDataSource.setClassification(classificationArray);
                 }
 

@@ -13,13 +13,17 @@ import java.util.List;
 
 public class FileUtil {
 
-    public static int[][] readFile(File file) throws Exception {
+    public static FileResult readFile(File file) throws Exception {
+        String[] nums = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String str;
         List<int[]> list = new ArrayList<>();
         while ((str = bufferedReader.readLine()) != null) {
             int s = 0;
             String[] arr = str.split(" ");
+            if (arr.length <= 1){
+                continue;
+            }
             int[] dArr = new int[arr.length];
             for (String ss : arr) {
                 if (ss != null) {
@@ -28,23 +32,26 @@ public class FileUtil {
             }
             list.add(dArr);
         }
-        int max = 0;
+        int max = 0, min = list.get(0).length;
         for (int[] ints : list) {
             if (max < ints.length)
                 max = ints.length;
+            if (min > ints.length) {
+                min = ints.length;
+            }
         }
         int[][] array = new int[list.size()][max];
         for (int i = 0; i < array.length; i++) {
             System.arraycopy(list.get(i), 0, array[i], 0, list.get(i).length);
         }
-        return array;
+        return new FileResult(array, max, min);
     }
 
     /**
-     * 将上传的文件重命名为“时间_文件名” ,防止文件名重复
+     * Rename the upload file to "datetime_filename"
      *
-     * @param uploadFile 文件
-     * @return 文件路径
+     * @param uploadFile file
+     * @return file path
      */
     public static String rename(UploadFile uploadFile) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -65,34 +72,52 @@ public class FileUtil {
      * @param attrFile  attribute file
      * @param edgeFile  edge file
      * @param classFile classification file
-     * @return pass: 0; Edge file exception: 1; Classification file exception: 2.
+     * @return pass: 0; Different number of attributes: 1; Duplicate point: 2; Contains other attributes not 0 or 1 :3;
+     * Edge file exception: 4; Classification file exception: 5.
      */
     public static int checkFiles(File attrFile, File edgeFile, File classFile) throws Exception {
-        int[][] attribute = readFile(attrFile);
-        int[][] edge = readFile(edgeFile);
+        FileResult attribute = readFile(attrFile);
+        FileResult edge = readFile(edgeFile);
 
         // save the points to the list
         List<Integer> points = new ArrayList<>();
-        for (int[] attrLine : attribute) {
+        for (int[] attrLine : attribute.getValue()) {
+            if (attribute.getMax() != attribute.getMin()) {
+                return 1;
+            }
+            if (points.contains(attrLine[0])) {
+                return 2;
+            }
+            for (int i = 1; i < attrLine.length; i++) {
+                if (attrLine[i] != 0 && attrLine[i] != 1) {
+                    return 3;
+                }
+            }
             points.add(attrLine[0]);
         }
 
         // verify the edge file
-        for (int[] edgeLine : edge) {
+        for (int[] edgeLine : edge.getValue()) {
+            if (edge.getMax() != 2 || edge.getMin() != 2) {
+                return 4;
+            }
             for (int value : edgeLine) {
                 // a nonexistent point appears in the file
                 if (!points.contains(value)) {
-                    return 1;
+                    return 4;
                 }
             }
         }
 
         // If the user uploads the classification file, verify the classification file
         if (classFile != null) {
-            int[][] classification = readFile(classFile);
-            for (int[] classificationLine : classification) {
+            FileResult classification = readFile(classFile);
+            if (classification.getMax() != 2 || classification.getMin() != 2) {
+                return 5;
+            }
+            for (int[] classificationLine : classification.getValue()) {
                 if (!points.contains(classificationLine[0])) {
-                    return 2;
+                    return 5;
                 }
             }
         }
