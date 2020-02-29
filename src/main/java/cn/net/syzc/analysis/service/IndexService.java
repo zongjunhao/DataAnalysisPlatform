@@ -75,8 +75,8 @@ public class IndexService {
                    side.setTarget(edgeArray[i][1]);
                    sides.add(side);
                 }
-
-                if (!classificationPath.equals("")) {
+                System.out.println("ClassFile:" + task.getAttriFile());
+                if (task.getClassFile() != null) {
                     int[][] classificationArray = FileUtil.readFile(new File(classificationPath)).getValue();
                     charmDataSource.setClassification(classificationArray);
                 }
