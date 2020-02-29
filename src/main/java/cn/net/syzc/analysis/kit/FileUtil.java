@@ -44,6 +44,7 @@ public class FileUtil {
         for (int i = 0; i < array.length; i++) {
             System.arraycopy(list.get(i), 0, array[i], 0, list.get(i).length);
         }
+        bufferedReader.close();
         return new FileResult(array, max, min);
     }
 

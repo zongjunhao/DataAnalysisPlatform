@@ -64,7 +64,7 @@ public class IndexService {
                 for (int i = 0; i < attriArray.length; i++) {
                     Node node = new Node();
                     node.setNodeId(attriArray[i][0]);
-                    node.setName("节点" + attriArray[i][0]);
+                    node.setName("Node:" + attriArray[i][0]);
                     nodes.add(node);
                 }
 
