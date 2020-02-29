@@ -150,28 +150,28 @@ public class IndexService {
         System.out.println("上传文件数：" + uploadFiles.size());
         switch (uploadFiles.size()) {
             case 2:
-                attriPath = FileUtil.rename(uploadFiles.get(0));
-                task.setAttriFile(attriPath);
-                edgePath = FileUtil.rename(uploadFiles.get(1));
-                task.setEdgeFile(edgePath);
                 ResultCodeEnum result1 = FileUtil.checkFiles(uploadFiles.get(0).getFile(), uploadFiles.get(1).getFile(), null);
                 if(!result1.getCode().equals("6021")){
                     baseResponse.setResult(result1);
                     return baseResponse;
                 }
+                attriPath = FileUtil.rename(uploadFiles.get(0));
+                task.setAttriFile(attriPath);
+                edgePath = FileUtil.rename(uploadFiles.get(1));
+                task.setEdgeFile(edgePath);
                 break;
             case 3:
+                ResultCodeEnum result2 = FileUtil.checkFiles(uploadFiles.get(0).getFile(), uploadFiles.get(1).getFile(), uploadFiles.get(2).getFile());
+                if(!result2.getCode().equals("6021")){
+                    baseResponse.setResult(result2);
+                    return baseResponse;
+                }
                 attriPath = FileUtil.rename(uploadFiles.get(0));
                 task.setAttriFile(attriPath);
                 edgePath = FileUtil.rename(uploadFiles.get(1));
                 task.setEdgeFile(edgePath);
                 classificationPath = FileUtil.rename(uploadFiles.get(2));
                 task.setClassFile(classificationPath);
-                ResultCodeEnum result2 = FileUtil.checkFiles(uploadFiles.get(0).getFile(), uploadFiles.get(1).getFile(), uploadFiles.get(2).getFile());
-                if(!result2.getCode().equals("6021")){
-                    baseResponse.setResult(result2);
-                    return baseResponse;
-                }
                 break;
         }
         if (task.save()) {

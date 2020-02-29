@@ -77,6 +77,7 @@ public enum ResultCodeEnum {
     EDGE_FILE_EXCEPTION("6019", "Edge file exception."),
     CLASS_FILE_EXCEPTION("6020","Classification file exception."),
     FILE_CHECK_PASSED("6021", "File check passed."),
+    READ_FILE_FAILED("6022", "Read file failed, please check the file."),
 
     GOODS_CANCEL_FOLLOW_FAILURE_DB_ERROR("6023", "货品取消关注失败_数据库错误"),
     GOODS_CANCEL_FOLLOW__SUCCESS("6024", "货品取消关注成功"),

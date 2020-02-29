@@ -220,7 +220,7 @@ public class IndexController extends Controller {
 
         } catch (Exception e) {
             e.printStackTrace();
-            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+            baseResponse.setResult(ResultCodeEnum.READ_FILE_FAILED);
         } finally {
             renderJson(baseResponse);
         }

@@ -1,26 +1,26 @@
 $(document).ready(function () {
-    // $("#edge-div *").attr("disabled", true);
-    // $("#classification-div *").attr("disabled", true);
-    // $("#edge-file").fileinput('disable');
-    // $("#classification-file").fileinput('disable');
-    let taskName;
-    let algorithm;
-    let boolean;
-    // $("#edge-file").fileinput('enable');
-    // $("#classification-file").fileinput('enable');
-    var attriFileInput;
-    var edgeFileInput;
+    // // $("#edge-div *").attr("disabled", true);
+    // // $("#classification-div *").attr("disabled", true);
+    // // $("#edge-file").fileinput('disable');
+    // // $("#classification-file").fileinput('disable');
+    // let taskName;
+    // let algorithm;
+    // let boolean;
+    // // $("#edge-file").fileinput('enable');
+    // // $("#classification-file").fileinput('enable');
+    // let attriFileInput;
+    // let edgeFileInput;
 });
 
 
 function add_task() {
-    taskName = $("#task-name").val();
-    algorithm = $("#algorithm-type").val();
-    boolean = document.getElementById("standardized").checked
+    let taskName = $("#task-name").val();
+    let algorithm = $("#algorithm-type").val();
+    let boolean = document.getElementById("standardized").checked;
     // $("#edge-file").fileinput('enable');
     // $("#classification-file").fileinput('enable');
-    attriFileInput = $('#attri-file').get(0).files[0];
-    edgeFileInput = $('#edge-file').get(0).files[0];
+    let attriFileInput = $('#attri-file').get(0).files[0];
+    let edgeFileInput = $('#edge-file').get(0).files[0];
     if (taskName === "") {
         // alert("Please enter a task name!");
         layer.msg("Please enter a task name !", {
@@ -44,7 +44,7 @@ function add_task() {
             time : 2000
         });
     } else {
-        var formdata = new FormData(document.getElementById("form"));
+        const formdata = new FormData(document.getElementById("form"));
         console.log(formdata);
         $.ajax({
             type: "POST",
