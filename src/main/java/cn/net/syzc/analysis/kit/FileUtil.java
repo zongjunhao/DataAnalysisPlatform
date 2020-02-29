@@ -72,10 +72,8 @@ public class FileUtil {
      * @param attrFile  attribute file
      * @param edgeFile  edge file
      * @param classFile classification file
-     * @return pass: 0; Different number of attributes: 1; Duplicate point: 2; Contains other attributes not 0 or 1 :3;
-     * Edge file exception: 4; Classification file exception: 5.
      */
-    public static int checkFiles(File attrFile, File edgeFile, File classFile) throws Exception {
+    public static ResultCodeEnum checkFiles(File attrFile, File edgeFile, File classFile) throws Exception {
         FileResult attribute = readFile(attrFile);
         FileResult edge = readFile(edgeFile);
 
@@ -83,14 +81,14 @@ public class FileUtil {
         List<Integer> points = new ArrayList<>();
         for (int[] attrLine : attribute.getValue()) {
             if (attribute.getMax() != attribute.getMin()) {
-                return 1;
+                return ResultCodeEnum.ATTR_FILE_EXCEPTION;
             }
             if (points.contains(attrLine[0])) {
-                return 2;
+                return ResultCodeEnum.ATTR_FILE_EXCEPTION;
             }
             for (int i = 1; i < attrLine.length; i++) {
                 if (attrLine[i] != 0 && attrLine[i] != 1) {
-                    return 3;
+                    return ResultCodeEnum.ATTR_FILE_EXCEPTION;
                 }
             }
             points.add(attrLine[0]);
@@ -99,12 +97,12 @@ public class FileUtil {
         // verify the edge file
         for (int[] edgeLine : edge.getValue()) {
             if (edge.getMax() != 2 || edge.getMin() != 2) {
-                return 4;
+                return ResultCodeEnum.EDGE_FILE_EXCEPTION;
             }
             for (int value : edgeLine) {
                 // a nonexistent point appears in the file
                 if (!points.contains(value)) {
-                    return 4;
+                    return ResultCodeEnum.EDGE_FILE_EXCEPTION;
                 }
             }
         }
@@ -113,24 +111,24 @@ public class FileUtil {
         if (classFile != null) {
             FileResult classification = readFile(classFile);
             if (classification.getMax() != 2 || classification.getMin() != 2) {
-                return 5;
+                return ResultCodeEnum.CLASS_FILE_EXCEPTION;
             }
             for (int[] classificationLine : classification.getValue()) {
                 if (!points.contains(classificationLine[0])) {
-                    return 5;
+                    return ResultCodeEnum.CLASS_FILE_EXCEPTION;
                 }
             }
         }
 
         // pass
-        return 0;
+        return ResultCodeEnum.FILE_CHECK_PASSED;
     }
 
     public static void main(String[] args) throws Exception {
         File attrFile = new File("src/main/java/cn/net/syzc/analysis/test/attri.txt");
         File edgeFile = new File("src/main/java/cn/net/syzc/analysis/test/edge.txt");
         File classFile = new File("src/main/java/cn/net/syzc/analysis/test/classification.txt");
-        int result = checkFiles(attrFile, edgeFile, classFile);
-        System.out.println("result = " + result);
+        // int result = checkFiles(attrFile, edgeFile, classFile);
+        // System.out.println("result = " + result);
     }
 }

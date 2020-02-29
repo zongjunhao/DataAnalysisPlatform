@@ -137,7 +137,7 @@ public class IndexService {
      * @param uploadFiles
      * @return
      */
-    public BaseResponse addTask(String u_id, String task_name, String algorithm_type, List<UploadFile> uploadFiles) {
+    public BaseResponse addTask(String u_id, String task_name, String algorithm_type, List<UploadFile> uploadFiles) throws Exception {
         BaseResponse baseResponse = new BaseResponse();
         Task task = new Task();
         task.setUserID(Integer.parseInt(u_id));
@@ -154,6 +154,11 @@ public class IndexService {
                 task.setAttriFile(attriPath);
                 edgePath = FileUtil.rename(uploadFiles.get(1));
                 task.setEdgeFile(edgePath);
+                ResultCodeEnum result1 = FileUtil.checkFiles(uploadFiles.get(0).getFile(), uploadFiles.get(1).getFile(), null);
+                if(!result1.getCode().equals("6021")){
+                    baseResponse.setResult(result1);
+                    return baseResponse;
+                }
                 break;
             case 3:
                 attriPath = FileUtil.rename(uploadFiles.get(0));
@@ -162,6 +167,11 @@ public class IndexService {
                 task.setEdgeFile(edgePath);
                 classificationPath = FileUtil.rename(uploadFiles.get(2));
                 task.setClassFile(classificationPath);
+                ResultCodeEnum result2 = FileUtil.checkFiles(uploadFiles.get(0).getFile(), uploadFiles.get(1).getFile(), uploadFiles.get(2).getFile());
+                if(!result2.getCode().equals("6021")){
+                    baseResponse.setResult(result2);
+                    return baseResponse;
+                }
                 break;
         }
         if (task.save()) {

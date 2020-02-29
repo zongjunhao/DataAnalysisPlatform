@@ -22,15 +22,27 @@ function add_task() {
     attriFileInput = $('#attri-file').get(0).files[0];
     edgeFileInput = $('#edge-file').get(0).files[0];
     if (taskName === "") {
-        alert("Please enter a task name!");
+        // alert("Please enter a task name!");
+        layer.msg("Please enter a task name !", {
+            time: 2000
+        });
     } else if (algorithm === "") {
-        alert("Please select an algorithm!");
+        // alert("Please select an algorithm!");
+        layer.msg("Please select an algorithm !" , {
+            time : 2000
+        });
     } else if (attriFileInput == null) {
-        alert("Please select a properties file!")
-    } else if (!boolean) {
-        alert("Please standardize the properties file!");
+        // alert("Please select a properties file!")
+        layer.msg("Please select a properties file !" , {
+            time : 2000
+        });
+    // } else if (!boolean) {
+    //     alert("Please standardize the properties file!");
     } else if (edgeFileInput == null) {
-        alert("Please select an edge file!");
+        // alert("Please select an edge file!");
+        layer.msg("Please select an edge file !" , {
+            time : 2000
+        });
     } else {
         var formdata = new FormData(document.getElementById("form"));
         console.log(formdata);

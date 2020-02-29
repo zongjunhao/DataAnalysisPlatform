@@ -71,11 +71,12 @@ public enum ResultCodeEnum {
     GOODS_UPLOAD_FAILURE_DB_ERROR("6015", "货品上传失败_数据库错误"),
     TASK_ADD_SUCCESS("6016", "Task added successfully."),
     TASK_ADD_FAILURE_DB_ERROR("6017", "Task added fail_database error."),
-    NOTICE_UPLOAD_SUCCESS("6018", "货品上传成功"),
-    NOTICE_UPDATE_STATE_SUCCESS("6019", "求购信息修改状态成功"),
-    NOTICE_UPDATE_STATE_FAILURE_DB_ERROR("6020", "求购信息修改状态失败_数据库错误"),
-    NOTICE_QUERY_SUCCESS("6021", "求购信息查询成功"),
-    NOTICE_QUERY_NULL("6022", "求购信息查询为空"),
+    // pass: 0; Different number of attributes: 1; Duplicate point: 2; Contains other attributes not 0 or 1 :3;
+    //  * Edge file exception: 4; Classification file exception: 5.
+    ATTR_FILE_EXCEPTION("6018", "Attribute file exception."),
+    EDGE_FILE_EXCEPTION("6019", "Edge file exception."),
+    CLASS_FILE_EXCEPTION("6020","Classification file exception."),
+    FILE_CHECK_PASSED("6021", "File check passed."),
 
     GOODS_CANCEL_FOLLOW_FAILURE_DB_ERROR("6023", "货品取消关注失败_数据库错误"),
     GOODS_CANCEL_FOLLOW__SUCCESS("6024", "货品取消关注成功"),
