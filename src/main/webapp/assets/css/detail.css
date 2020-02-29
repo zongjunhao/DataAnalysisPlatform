@@ -17,7 +17,7 @@ th {
     text-align: center;
 }
 
-.panel{
+.panel {
     margin-bottom: 0;
 }
 
@@ -30,4 +30,17 @@ th {
     font-size: 14px;
     line-height: 30px;
     margin-left: 280px;
+}
+
+.panel .panel-heading button i {
+    font-size: 30px;
+}
+
+.panel .panel-heading button {
+    margin: 10px 20px;
+}
+
+.panel .panel-heading {
+    display: flex;
+    padding-left: 0;
 }
