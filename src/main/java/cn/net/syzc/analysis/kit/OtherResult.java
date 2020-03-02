@@ -3,22 +3,22 @@ package cn.net.syzc.analysis.kit;
 /**
  * Save the result of file
  */
-public class FileResult{
-    private double[][] value;
+public class OtherResult{
+    private int[][] value;
     private int max;
     private int min;
 
-    FileResult(double[][] value, int max, int min){
+    OtherResult(int[][] value, int max, int min){
         this.value = value;
         this.max = max;
         this.min = min;
     }
 
-    public double[][] getValue() {
+    public int[][] getValue() {
         return value;
     }
 
-    public void setValue(double[][] value) {
+    public void setValue(int[][] value) {
         this.value = value;
     }
 

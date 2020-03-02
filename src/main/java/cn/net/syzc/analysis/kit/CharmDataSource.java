@@ -9,7 +9,7 @@ public class CharmDataSource {
     Task task = new Task();
     List<Node> nodes = new ArrayList<>();
     List<Side> sides = new ArrayList<>();
-    int[][] attri;
+    double[][] attri;
     int[][] classification;
 
     public Task getTask() {
@@ -28,11 +28,11 @@ public class CharmDataSource {
         this.classification = classification;
     }
 
-    public int[][] getAttri() {
+    public double[][] getAttri() {
         return attri;
     }
 
-    public void setAttri(int[][] attri) {
+    public void setAttri(double[][] attri) {
         this.attri = attri;
     }
 

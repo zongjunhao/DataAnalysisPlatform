@@ -88,7 +88,6 @@ function initCharm(nodes, sides) {
                 } else {
                     // 点击到了 graph 的 node（节点）上。
                     console.log('点击到了 graph 的 node（节点）上');
-                    console.log(params);
                     getNodeAttri(params.data.nodeId);
                 }
             }
@@ -97,7 +96,6 @@ function initCharm(nodes, sides) {
 }
 
 function getNodeAttri(nodeId) {
-    console.log('获取节点ID为' + nodeId + '的详细信息');
     let tableh = "<tr>";
     let tableb = "<tr>";
     attri.forEach(element => {
@@ -136,7 +134,6 @@ function getNodeAttri(nodeId) {
 }
 
 function switchMode() {
-    console.log('获取相似度');
     layer.msg("Please select two nodes in turn for link prediction.", {
         time: 2000
     });
@@ -170,8 +167,6 @@ function getClassification(nodeId) {
     });
 }
 function getSimilarity() {
-    console.log('调用python脚本获取相似度');
-    console.log('链接预测的两个节点：' + SimilarityCalculationNodes);
     $.ajax({
         type: "POST",
         url: "getSimilarity",

@@ -14,14 +14,47 @@ import java.util.List;
 public class FileUtil {
 
     public static FileResult readFile(File file) throws Exception {
-        String[] nums = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String str;
+        List<double[]> list = new ArrayList<>();
+        while ((str = bufferedReader.readLine()) != null) {
+            int s = 0;
+            String[] arr = str.split(" ");
+            if (arr.length <= 1) {
+                continue;
+            }
+            double[] dArr = new double[arr.length];
+            for (String ss : arr) {
+                if (ss != null) {
+                    dArr[s++] = Double.parseDouble(ss);
+                }
+            }
+            list.add(dArr);
+        }
+        int max = 0, min = list.get(0).length;
+        for (double[] ints : list) {
+            if (max < ints.length)
+                max = ints.length;
+            if (min > ints.length) {
+                min = ints.length;
+            }
+        }
+        double[][] array = new double[list.size()][max];
+        for (int i = 0; i < array.length; i++) {
+            System.arraycopy(list.get(i), 0, array[i], 0, list.get(i).length);
+        }
+        bufferedReader.close();
+        return new FileResult(array, max, min);
+    }
+
+    public static OtherResult readOtherFile(File file) throws Exception {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String str;
         List<int[]> list = new ArrayList<>();
         while ((str = bufferedReader.readLine()) != null) {
             int s = 0;
             String[] arr = str.split(" ");
-            if (arr.length <= 1){
+            if (arr.length <= 1) {
                 continue;
             }
             int[] dArr = new int[arr.length];
@@ -45,7 +78,7 @@ public class FileUtil {
             System.arraycopy(list.get(i), 0, array[i], 0, list.get(i).length);
         }
         bufferedReader.close();
-        return new FileResult(array, max, min);
+        return new OtherResult(array, max, min);
     }
 
     /**
@@ -76,23 +109,23 @@ public class FileUtil {
      */
     public static ResultCodeEnum checkFiles(File attrFile, File edgeFile, File classFile) throws Exception {
         FileResult attribute = readFile(attrFile);
-        FileResult edge = readFile(edgeFile);
+        OtherResult edge = readOtherFile(edgeFile);
 
         // save the points to the list
         List<Integer> points = new ArrayList<>();
-        for (int[] attrLine : attribute.getValue()) {
+        for (double[] attrLine : attribute.getValue()) {
             if (attribute.getMax() != attribute.getMin()) {
                 return ResultCodeEnum.ATTR_FILE_EXCEPTION;
             }
-            if (points.contains(attrLine[0])) {
+            if (points.contains((int) attrLine[0])) {
                 return ResultCodeEnum.ATTR_FILE_EXCEPTION;
             }
             for (int i = 1; i < attrLine.length; i++) {
-                if (attrLine[i] != 0 && attrLine[i] != 1) {
+                if (!(attrLine[i] >= 0 && attrLine[i] <= 1)) {
                     return ResultCodeEnum.ATTR_FILE_EXCEPTION;
                 }
             }
-            points.add(attrLine[0]);
+            points.add((int) attrLine[0]);
         }
 
         // verify the edge file
@@ -110,7 +143,7 @@ public class FileUtil {
 
         // If the user uploads the classification file, verify the classification file
         if (classFile != null) {
-            FileResult classification = readFile(classFile);
+            OtherResult classification = readOtherFile(classFile);
             if (classification.getMax() != 2 || classification.getMin() != 2) {
                 return ResultCodeEnum.CLASS_FILE_EXCEPTION;
             }
