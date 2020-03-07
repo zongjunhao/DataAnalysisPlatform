@@ -167,6 +167,8 @@ function getClassification(nodeId) {
     });
 }
 function getSimilarity() {
+    console.log("获取相似度");
+    console.log(SimilarityCalculationNodes);
     $.ajax({
         type: "POST",
         url: "getSimilarity",
