@@ -169,6 +169,8 @@ function getClassification(nodeId) {
 function getSimilarity() {
     console.log("获取相似度");
     console.log(SimilarityCalculationNodes);
+    $.session.set('link-pre1', SimilarityCalculationNodes[0]);
+    $.session.set('link-pre2', SimilarityCalculationNodes[1]);
     $.ajax({
         type: "POST",
         url: "getSimilarity",
@@ -191,8 +193,10 @@ function getSimilarity() {
                     title: 'Link Prediction',
                     area: ['400px', '120px'],
                     shadeClose: true, //点击遮罩关闭
-                    content: '\<\div style="padding:20px;">node:' + SimilarityCalculationNodes[0] + " and node:" 
-                    + SimilarityCalculationNodes[1] + " 's similarity is: " + jsonobj.data + '\<\/div>'
+                    // content: '\<\div style="padding:20px;">node:' + SimilarityCalculationNodes[0] + " and node:" 
+                    // + SimilarityCalculationNodes[1] + " 's similarity is: " + jsonobj.data + '\<\/div>'
+                    content: '\<\div style="padding:20px;">node:' + $.session.get('link-pre1') + " and node:" 
+                    + $.session.get('link-pre2') + " 's similarity is: " + jsonobj.data + '\<\/div>'
                 });
             } else {
                 layer.msg(jsonobj.resultDesc, {

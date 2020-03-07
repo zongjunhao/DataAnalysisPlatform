@@ -109,7 +109,8 @@ public class IndexService {
         String pythonFilePath = "D:\\Users\\pleasure\\Desktop\\DataAnalysisPlatform\\demo.py";
         // 调用python脚本获取节点的分类号
         String[] args = new String[]{"python", pythonFilePath, taskId, nodeId};
-        baseResponse = CallPythonFile.callPythonScripts(args);
+//        baseResponse = CallPythonFile.callPythonScripts(args);
+        baseResponse.setResult(ResultCodeEnum.CLASSIFICATION_GET_SUCCESS);
         return baseResponse;
     }
 
