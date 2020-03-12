@@ -45,18 +45,21 @@ function add_task() {
         });
     } else {
         const formdata = new FormData(document.getElementById("form"));
+        let loadFormIndex = layer.load(0, {shade: [0.5, '#f5f5f5'], zIndex: 222222222});
+        console.log("layer.open2222");
         console.log(formdata);
         $.ajax({
             type: "POST",
             url: "addTask",
             //dataType: "json",
-            async: false,
+            async: true,
             cache: false,
             contentType: false,
             processData: false,
             data: formdata,
             success: function (res) {
                 console.log(res.resultDesc);
+                layer.close(loadFormIndex);
                 layer.msg(res.resultDesc, {
                     time: 1500
                 });
