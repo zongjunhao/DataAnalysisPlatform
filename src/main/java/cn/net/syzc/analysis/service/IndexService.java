@@ -49,33 +49,36 @@ public class IndexService {
      * @return
      */
     public BaseResponse getTask(String taskId) {
+        Test.log("Get Task IndexService start");
         BaseResponse baseResponse = new BaseResponse();
         CharmDataSource charmDataSource = new CharmDataSource();
-        List<Node> nodes = new ArrayList<>();
+        List<Integer> nodes = new ArrayList<>();
         List<Side> sides = new ArrayList<>();
-
+        Test.log("Get Task IndexService query record start");
         Task task = taskDao.findFirst("select * from task where id = ?", taskId);
+        Test.log("Get Task IndexService query record end");
         if (task != null) {
             String attriPath = PathKit.getWebRootPath() + task.getAttriFile();
             String edgePath = PathKit.getWebRootPath() + task.getEdgeFile();
             String classificationPath = PathKit.getWebRootPath() + task.getClassFile();
-
+            Test.log("Get Task IndexService try-catch start");
             try {
                 double[][] attriArray = FileUtil.readFile(new File(attriPath)).getValue();
                 for (int i = 0; i < attriArray.length; i++) {
-                    Node node = new Node();
-                    node.setNodeId((int)attriArray[i][0]);
-                    node.setName("Node:" + (int)attriArray[i][0]);
-                    nodes.add(node);
+//                    Node node = new Node();
+//                    node.setNodeId((int)attriArray[i][0]);
+//                    node.setName("Node:" + (int)attriArray[i][0]);
+//                    nodes.add(node);
+                    nodes.add((int)attriArray[i][0]);
                 }
 
                 int[][] edgeArray = FileUtil.readOtherFile(new File(edgePath)).getValue();
-                for (int i = 0; i < edgeArray.length; i++) {
-                   Side side = new Side();
-                   side.setSource(edgeArray[i][0]);
-                   side.setTarget(edgeArray[i][1]);
-                   sides.add(side);
-                }
+//                for (int i = 0; i < edgeArray.length; i++) {
+//                   Side side = new Side();
+//                   side.setSource(edgeArray[i][0]);
+//                   side.setTarget(edgeArray[i][1]);
+//                   sides.add(side);
+//                }
                 System.out.println("ClassFile:" + task.getAttriFile());
                 if (task.getClassFile() != null) {
                     int[][] classificationArray = FileUtil.readOtherFile(new File(classificationPath)).getValue();
@@ -83,7 +86,8 @@ public class IndexService {
                 }
 
                 charmDataSource.setNodes(nodes);
-                charmDataSource.setSides(sides);
+//                charmDataSource.setSides(sides);
+                charmDataSource.setSides(edgeArray);
                 charmDataSource.setAttri(attriArray);
                 charmDataSource.setTask(task);
 
@@ -93,9 +97,11 @@ public class IndexService {
                 baseResponse.setResult(ResultCodeEnum.File_NO_EXIST);
                 e.printStackTrace();
             }
+            Test.log("Get Task IndexService try-catch end");
         } else {
             baseResponse.setResult(ResultCodeEnum.TASK_NOT_EXIST);
         }
+        Test.log("Get Task IndexService end");
         return baseResponse;
     }
 

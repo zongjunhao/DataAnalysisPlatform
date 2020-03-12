@@ -132,7 +132,9 @@ public class IndexController extends Controller {
      *
      */
     public void getTask() {
+        Test.log("Get Task IndexController start");
         BaseResponse baseResponse = new BaseResponse();
+        Test.log("Get Task IndexController try-catch start");
         try {
             String taskId = getPara("taskId");
             if (!StrKit.isBlank(taskId)) {
@@ -145,7 +147,9 @@ public class IndexController extends Controller {
             baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
         } finally {
             renderJson(baseResponse);
+            Test.log("Get Task IndexController try-catch end");
         }
+        Test.log("Get Task IndexController end");
     }
 
     /**
