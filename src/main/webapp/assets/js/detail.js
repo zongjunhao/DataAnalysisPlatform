@@ -1,5 +1,7 @@
 var attri = [];
 var classification = [];
+var edges = [];
+var nodes = [];
 // 链接预测的两个节点
 var SimilarityCalculationNodes = [];
 // 点击节点是否进行链接预测的标志
@@ -20,17 +22,24 @@ $(document).ready(function () {
         },
         success: function (jsonobj) {
             if (jsonobj.resultCode === "6001") {//任务查询成功
-                console.log(jsonobj.data);
-                let nodes = jsonobj.data.nodes;
+                // console.log(jsonobj.data);
+                nodes = jsonobj.data.nodes;
                 let sides = jsonobj.data.sides;
+
+                sides.forEach(side => {
+                    var edge = new Object();
+                    edge.source = side[0];
+                    edge.target = side[1];
+                    edges.push(edge);
+                });
 
                 $('#start-time').text(jsonobj.data.task.StartTime);
                 $('#end-time').text(jsonobj.data.task.EndTime);
                 $('.message-body').text(jsonobj.data.task.Messages);
-
-                attri = jsonobj.data.attri;
-                classification = jsonobj.data.classification;
-                initCharm(nodes, sides);
+                console.log('开始初始化图');
+                initCharm();
+                console.log('结束初始化图');
+                getFeatureGroup();
             } else {
                 layer.msg(jsonobj.resultDesc, {
                     time: 1000
@@ -40,7 +49,7 @@ $(document).ready(function () {
     });
 });
 // 初始化关系图
-function initCharm(nodes, sides) {
+function initCharm() {
 
     // 基于准备好的dom，初始化echarts实例
     let myChart = echarts.init(document.getElementById('chart'));
@@ -68,7 +77,7 @@ function initCharm(nodes, sides) {
                     fontSize: 20
                 },
                 data: nodes,
-                links: sides,
+                links: edges,
                 lineStyle: {
                     opacity: 0.9,
                     width: 2,
@@ -83,15 +92,42 @@ function initCharm(nodes, sides) {
         if (params.componentType === 'series') {
             if (params.seriesType === 'graph') {
                 if (params.dataType === 'edge') {
-                    // 点击到了 graph 的 edge（边）上。
-                    console.log('点击到了 graph 的 edge（边）上');
+                    // Clicked on the edge of the graph.
+                    console.log('Clicked on the edge of the graph.');
                 } else {
-                    // 点击到了 graph 的 node（节点）上。
-                    console.log('点击到了 graph 的 node（节点）上');
-                    getNodeAttri(params.data.nodeId);
+                    // Clicked on the node of the graph.
+                    console.log('Clicked on the node of the graph.');
+                    getNodeAttri(params.data);
                 }
             }
         }
+    });
+}
+
+function getFeatureGroup() {
+    console.log('开始请求属性和分类');
+    $.ajax({
+        type: "POST",
+        url: "getFeatureGroup",
+        datatype: 'json',
+        data: {
+            "taskId": $.session.get('viewedTaskId'),
+        }, // 发送数据
+        error: function () {
+            layer.msg('request failed', {
+                time: 1000
+            });
+        },
+        success: function (jsonobj) {
+            if (jsonobj.resultCode === "5001") {//查询属性和分类成功
+                attri = jsonobj.data.attri;
+                classification = jsonobj.data.classification;
+            } else {
+                layer.msg(jsonobj.resultDesc, {
+                    time: 1000
+                });
+            }
+        },
     });
 }
 
@@ -195,8 +231,8 @@ function getSimilarity() {
                     shadeClose: true, //点击遮罩关闭
                     // content: '\<\div style="padding:20px;">node:' + SimilarityCalculationNodes[0] + " and node:" 
                     // + SimilarityCalculationNodes[1] + " 's similarity is: " + jsonobj.data + '\<\/div>'
-                    content: '\<\div style="padding:20px;">node:' + $.session.get('link-pre1') + " and node:" 
-                    + $.session.get('link-pre2') + " 's similarity is: " + jsonobj.data + '\<\/div>'
+                    content: '\<\div style="padding:20px;">node:' + $.session.get('link-pre1') + " and node:"
+                        + $.session.get('link-pre2') + " 's similarity is: " + jsonobj.data + '\<\/div>'
                 });
             } else {
                 layer.msg(jsonobj.resultDesc, {

@@ -12,6 +12,8 @@ public enum ResultCodeEnum {
     LOGIN_SUCCESS("4000", "Login success."),
     LOGIN_ERROR("4001", "Login failed, password error."),
     NO_EXIST_USER("4002", "Login failed, user dose not exist."),
+    FEATURES_GROUP_QUERY_SUCCESS("5001", "Features and group query success."),
+    FEATURES_GROUP_QUERY_FAILURE("5002", "Features and group query failure."),
     TASK_QUERY_SUCCESS("6001", "Task query success."),
     TASK_DELETE_SUCCESS("6004", "Task deleted successfully."),
     TASK_NOT_EXIST("6005", "Task not exist."),

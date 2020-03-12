@@ -152,6 +152,26 @@ public class IndexController extends Controller {
         Test.log("Get Task IndexController end");
     }
 
+    public void getFeatureGroup() {
+        Test.log("Get Feature and Group IndexController start");
+        BaseResponse baseResponse = new BaseResponse();
+        Test.log("Get Feature and Group IndexController try-catch start");
+        try {
+            String taskId = getPara("taskId");
+            if (!StrKit.isBlank(taskId)) {
+                baseResponse = indexService.getFeatureGroup(taskId);
+            } else {
+                baseResponse.setResult(ResultCodeEnum.PARA_NUM_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResponse.setResult(ResultCodeEnum.UNKNOWN_ERROR);
+        } finally {
+            renderJson(baseResponse);
+            Test.log("Get Feature and Group IndexController try-catch end");
+        }
+        Test.log("Get Feature and Group IndexController end");
+    }
     /**
      *
      */
