@@ -5,6 +5,7 @@ import cn.net.syzc.analysis.kit.ResultCodeEnum;
 import cn.net.syzc.analysis.model.Task;
 import cn.net.syzc.analysis.model.User;
 import cn.net.syzc.analysis.service.IndexService;
+import cn.net.syzc.analysis.test.Test;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.upload.UploadFile;
@@ -196,8 +197,10 @@ public class IndexController extends Controller {
      *
      */
     public void addTask() {
+        Test.log("Add Task Index Controller start");
         BaseResponse baseResponse = new BaseResponse();
         try {
+            Test.log("Add Task Index Controller try-catch start");
             List<UploadFile> uploadFiles = new ArrayList<>();
             UploadFile attriFile = getFile("attri-file");
             UploadFile edgeFile = getFile("edge-file");
@@ -223,6 +226,8 @@ public class IndexController extends Controller {
             baseResponse.setResult(ResultCodeEnum.READ_FILE_FAILED);
         } finally {
             renderJson(baseResponse);
+            Test.log("Add Task Index Controller try-catch end");
         }
+        Test.log("Add Task Index Controller end");
     }
 }

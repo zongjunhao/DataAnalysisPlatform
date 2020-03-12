@@ -3,6 +3,7 @@ package cn.net.syzc.analysis.service;
 import cn.net.syzc.analysis.kit.*;
 import cn.net.syzc.analysis.model.Task;
 import cn.net.syzc.analysis.model.User;
+import cn.net.syzc.analysis.test.Test;
 import com.jfinal.kit.PathKit;
 import com.jfinal.upload.UploadFile;
 
@@ -141,6 +142,7 @@ public class IndexService {
      * @return
      */
     public BaseResponse addTask(String u_id, String task_name, String algorithm_type, List<UploadFile> uploadFiles) throws Exception {
+        Test.log("Add Task Index Service start");
         BaseResponse baseResponse = new BaseResponse();
         Task task = new Task();
         task.setUserID(Integer.parseInt(u_id));
@@ -151,6 +153,7 @@ public class IndexService {
         String edgePath = null;
         String classificationPath = null;
         System.out.println("上传文件数：" + uploadFiles.size());
+        Test.log("Add Task Index Service switch start");
         switch (uploadFiles.size()) {
             case 2:
                 ResultCodeEnum result1 = FileUtil.checkFiles(uploadFiles.get(0).getFile(), uploadFiles.get(1).getFile(), null);
@@ -177,11 +180,15 @@ public class IndexService {
                 task.setClassFile(classificationPath);
                 break;
         }
+        Test.log("Add Task Index Service switch end");
+        Test.log("Add Task Index Service save start");
         if (task.save()) {
             baseResponse.setResult(ResultCodeEnum.TASK_ADD_SUCCESS);
         } else {
             baseResponse.setResult(ResultCodeEnum.TASK_ADD_FAILURE_DB_ERROR);
         }
+        Test.log("Add Task Index Service save end");
+        Test.log("Add Task Index Service end");
         return baseResponse;
     }
 }
