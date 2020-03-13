@@ -1,12 +1,17 @@
 var attri = [];
 var classification = [];
-
+let myChart = echarts.init(document.getElementById('chart'));
 // 链接预测的两个节点
 var SimilarityCalculationNodes = [];
 // 点击节点是否进行链接预测的标志
 var flag = false;
 // 获取属性文件、边文件以及分类文件的路径
 $(document).ready(function () {
+    myChart.showLoading();
+    getTask();
+});
+
+function getTask() {
     $.ajax({
         type: "POST",
         url: "getTask",
@@ -57,8 +62,8 @@ $(document).ready(function () {
                 console.log(nodes);
                 console.log(links);
                 initCharm(nodes, links);
-
                 getFeatureGroup();
+                myChart.hideLoading();
             } else {
                 layer.msg(jsonobj.resultDesc, {
                     time: 1000
@@ -66,12 +71,11 @@ $(document).ready(function () {
             }
         },
     });
-});
+}
 // 初始化关系图
 function initCharm(nodes, links) {
 
     // 基于准备好的dom，初始化echarts实例
-    let myChart = echarts.init(document.getElementById('chart'));
 
     // 指定图表的配置项和数据
     // let option = {
