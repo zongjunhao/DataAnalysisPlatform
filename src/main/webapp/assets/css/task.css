@@ -21,3 +21,7 @@ tr td:last-child {
     display: flex;
     justify-content: space-evenly;
 }
+
+.embed-responsive-item{
+    overflow: auto;
+}

@@ -20,7 +20,7 @@ public class IndexService {
     }
 
     public List<Task> getTaskList(Integer UserId) {
-        return taskDao.find("select * from task where UserID = ? ", UserId);
+        return taskDao.find("select * from task where UserID = ? ORDER BY StartTime DESC", UserId);
     }
 
     /**

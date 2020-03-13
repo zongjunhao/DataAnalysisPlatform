@@ -44,3 +44,7 @@ th {
     display: flex;
     padding-left: 0;
 }
+
+.node-attribute{
+    overflow-x: auto;
+}
