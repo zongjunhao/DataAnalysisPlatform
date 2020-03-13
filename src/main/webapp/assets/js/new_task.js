@@ -28,24 +28,41 @@ function add_task() {
         });
     } else if (algorithm === "") {
         // alert("Please select an algorithm!");
-        layer.msg("Please select an algorithm !" , {
-            time : 2000
+        layer.msg("Please select an algorithm !", {
+            time: 2000
         });
     } else if (attriFileInput == null) {
         // alert("Please select a properties file!")
-        layer.msg("Please select a properties file !" , {
-            time : 2000
+        layer.msg("Please select a properties file !", {
+            time: 2000
         });
-    // } else if (!boolean) {
-    //     alert("Please standardize the properties file!");
+        // } else if (!boolean) {
+        //     alert("Please standardize the properties file!");
     } else if (edgeFileInput == null) {
         // alert("Please select an edge file!");
-        layer.msg("Please select an edge file !" , {
-            time : 2000
+        layer.msg("Please select an edge file !", {
+            time: 2000
         });
     } else {
         const formdata = new FormData(document.getElementById("form"));
-        let loadFormIndex = layer.load(0, {shade: [0.5, '#f5f5f5'], zIndex: 222222222});
+        let loadFormIndex = layer.load(0, {
+            shade: [0.5, '#F5F5F5'],
+            zIndex: 222222222
+        });
+        layer.msg("Uploading files, please wait...", {
+            time: 1500,
+            zIndex: 333333333
+        });
+        // layer.load(2, { //icon支持传入0-2
+        //     shade: [0.5, 'gray'], //0.5透明度的灰色背景
+        //     content: '加载中...',
+        //     success: function (layero) {
+        //         layero.find('.layui-layer-content').css({
+        //             'padding-top': '39px',
+        //             'width': '60px'
+        //         });
+        //     }
+        // });
         console.log("layer.open2222");
         console.log(formdata);
         $.ajax({
