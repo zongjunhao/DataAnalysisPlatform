@@ -28,7 +28,7 @@ $(document).ready(function () {
                 jsonobj.data.nodes.forEach(function (origin_node) {
                     var node = new Object();
                     node.id = origin_node;
-                    node.name = origin_node;
+                    node.name = 'node';
                     node.itemStyle = null;
                     node.symbolSize = 10;
                     node.value = origin_node;
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 $('#start-time').text(jsonobj.data.task.StartTime);
                 $('#end-time').text(jsonobj.data.task.EndTime);
                 $('.message-body').text(jsonobj.data.task.Messages);
-                console.log('打印nodes、links');
+
                 console.log(nodes);
                 console.log(links);
                 initCharm(nodes, links);
@@ -72,38 +72,8 @@ function initCharm(nodes, links) {
 
     // 基于准备好的dom，初始化echarts实例
     let myChart = echarts.init(document.getElementById('chart'));
+    myChart.showLoading();
 
-    // 指定图表的配置项和数据
-    // let option = {
-    //     title: {
-    //         text: ''
-    //     },
-    //     tooltip: {},
-    //     animationDurationUpdate: 1500,
-    //     animationEasingUpdate: 'quinticInOut',
-    //     series: [
-    //         {
-    //             type: 'graph',
-    //             layout: 'circular',
-    //             symbolSize: 50,
-    //             roam: true,
-    //             label: {
-    //                 show: true
-    //             },
-    //             edgeSymbol: ['none', 'none'],
-    //             edgeSymbolSize: 10,
-    //             edgeLabel: {
-    //                 fontSize: 20
-    //             },
-    //             data: nodes,
-    //             links: edges,
-    //             lineStyle: {
-    //                 opacity: 0.9,
-    //                 width: 2,
-    //             }
-    //         }
-    //     ]
-    // };
     option = {
         title: {
             // text: '',
@@ -116,7 +86,7 @@ function initCharm(nodes, links) {
         animation: false,
         series : [
             {
-                name: 'node',
+                name: '',
                 type: 'graph',
                 layout: 'force',
                 data: nodes,
@@ -135,7 +105,6 @@ function initCharm(nodes, links) {
     myChart.setOption(option);
 
     myChart.on('click', function (params) {
-        console.log(params);
         if (params.componentType === 'series') {
             if (params.seriesType === 'graph') {
                 if (params.dataType === 'edge') {
@@ -149,6 +118,7 @@ function initCharm(nodes, links) {
             }
         }
     });
+    myChart.hideLoading();
 }
 
 function getFeatureGroup() {
