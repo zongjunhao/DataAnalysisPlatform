@@ -1,7 +1,6 @@
 var attri = [];
 var classification = [];
-var edges = [];
-var nodes = [];
+
 // 链接预测的两个节点
 var SimilarityCalculationNodes = [];
 // 点击节点是否进行链接预测的标志
@@ -22,23 +21,43 @@ $(document).ready(function () {
         },
         success: function (jsonobj) {
             if (jsonobj.resultCode === "6001") {//任务查询成功
-                // console.log(jsonobj.data);
-                nodes = jsonobj.data.nodes;
-                let sides = jsonobj.data.sides;
 
-                sides.forEach(side => {
-                    var edge = new Object();
-                    edge.source = side[0];
-                    edge.target = side[1];
-                    edges.push(edge);
+                var links = [];
+                var nodes = [];
+
+                jsonobj.data.nodes.forEach(function (origin_node) {
+                    var node = new Object();
+                    node.id = origin_node;
+                    node.name = origin_node;
+                    node.itemStyle = null;
+                    node.symbolSize = 10;
+                    node.value = origin_node;
+                    // Use random x, y
+                    node.x = node.y = null;
+                    node.draggable = true;
+                    nodes.push(node);
+                });
+
+                var i = 0;
+                jsonobj.data.sides.forEach(side => {
+                    var link = new Object();
+                    link.id = i++;
+                    link.name = null;
+                    link.source = side[0];
+                    link.target = side[1];
+                    var normal = new Object();
+                    link.lineStyle = normal;
+                    links.push(link);
                 });
 
                 $('#start-time').text(jsonobj.data.task.StartTime);
                 $('#end-time').text(jsonobj.data.task.EndTime);
                 $('.message-body').text(jsonobj.data.task.Messages);
-                console.log('开始初始化图');
-                initCharm();
-                console.log('结束初始化图');
+                console.log('打印nodes、links');
+                console.log(nodes);
+                console.log(links);
+                initCharm(nodes, links);
+
                 getFeatureGroup();
             } else {
                 layer.msg(jsonobj.resultDesc, {
@@ -49,38 +68,65 @@ $(document).ready(function () {
     });
 });
 // 初始化关系图
-function initCharm() {
+function initCharm(nodes, links) {
 
     // 基于准备好的dom，初始化echarts实例
     let myChart = echarts.init(document.getElementById('chart'));
 
     // 指定图表的配置项和数据
-    let option = {
+    // let option = {
+    //     title: {
+    //         text: ''
+    //     },
+    //     tooltip: {},
+    //     animationDurationUpdate: 1500,
+    //     animationEasingUpdate: 'quinticInOut',
+    //     series: [
+    //         {
+    //             type: 'graph',
+    //             layout: 'circular',
+    //             symbolSize: 50,
+    //             roam: true,
+    //             label: {
+    //                 show: true
+    //             },
+    //             edgeSymbol: ['none', 'none'],
+    //             edgeSymbolSize: 10,
+    //             edgeLabel: {
+    //                 fontSize: 20
+    //             },
+    //             data: nodes,
+    //             links: edges,
+    //             lineStyle: {
+    //                 opacity: 0.9,
+    //                 width: 2,
+    //             }
+    //         }
+    //     ]
+    // };
+    option = {
         title: {
-            text: ''
+            // text: '',
+            // subtext: 'Default layout',
+            // top: 'bottom',
+            // left: 'right'
         },
         tooltip: {},
-        animationDurationUpdate: 1500,
-        animationEasingUpdate: 'quinticInOut',
-        series: [
+        legend: [],
+        animation: false,
+        series : [
             {
+                name: 'node',
                 type: 'graph',
-                layout: 'circular',
-                symbolSize: 50,
+                layout: 'force',
+                data: nodes,
+                links: links,
                 roam: true,
                 label: {
-                    show: true
+                    position: 'right'
                 },
-                edgeSymbol: ['none', 'none'],
-                edgeSymbolSize: 10,
-                edgeLabel: {
-                    fontSize: 20
-                },
-                data: nodes,
-                links: edges,
-                lineStyle: {
-                    opacity: 0.9,
-                    width: 2,
+                force: {
+                    repulsion: 100
                 }
             }
         ]
@@ -89,6 +135,7 @@ function initCharm() {
     myChart.setOption(option);
 
     myChart.on('click', function (params) {
+        console.log(params);
         if (params.componentType === 'series') {
             if (params.seriesType === 'graph') {
                 if (params.dataType === 'edge') {
@@ -97,7 +144,7 @@ function initCharm() {
                 } else {
                     // Clicked on the node of the graph.
                     console.log('Clicked on the node of the graph.');
-                    getNodeAttri(params.data);
+                    getNodeAttri(params.data.id);
                 }
             }
         }
